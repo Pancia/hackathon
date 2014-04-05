@@ -32,7 +32,7 @@
         android:gravity="center"
         android:layout_marginTop="150dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/activitymain_textedit_username"/>
+        android:id="@+id/activitymain_edittext_username"/>
 
     <EditText
         android:layout_width="@dimen/dialog_fixed_width_minor"
@@ -42,6 +42,6 @@
         android:text="Password"
         android:textSize="25dp"
         android:layout_centerHorizontal="true"
-        android:id="@+id/activitymain_textedit_password"/>
+        android:id="@+id/activitymain_edittext_password"/>
 
 </RelativeLayout>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item type="id" name="activitymain_button_login" />
-    <item type="id" name="activitymain_button_signup" />
-    <item type="id" name="activitymain_textedit_username" />
-    <item type="id" name="activitymain_textedit_password" />
-</resources>
