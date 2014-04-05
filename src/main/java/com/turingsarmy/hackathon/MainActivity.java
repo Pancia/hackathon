@@ -15,18 +15,18 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*CAMERONS TEST CODE
+        /**********CAMERONS TEST CODE***************************************************************
         GPSTracker gps = new GPSTracker(this);
         TextView gpsEnable = (TextView)findViewById(R.id.gps_enable);
         TextView gpsLat = (TextView)findViewById(R.id.gps_lat);
         TextView gpsLong = (TextView)findViewById(R.id.gps_long);
         addListenerOnButton(gps, gpsEnable, gpsLat, gpsLong);
-        */
+        *******************************************************************************************/
 
 
     }
 
-    /*CAMERONS TEST CODE
+    /**********CAMERONS TEST CODE*******************************************************************
     public void addListenerOnButton(final GPSTracker gps, final TextView ena, final TextView lat, final TextView lon) {
 
         Button gpsButton = (Button) findViewById(R.id.gps_button);
@@ -48,7 +48,7 @@ public class MainActivity extends ActionBarActivity {
             }
         });
     }
-    */
+    ***********************************************************************************************/
 
 
         @Override
