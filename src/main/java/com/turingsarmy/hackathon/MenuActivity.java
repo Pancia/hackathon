@@ -29,6 +29,13 @@ public class MenuActivity extends ActionBarActivity {
                 MenuActivity.this.startActivity(myIntent);
             }
         });
+        map.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v)
+            {
+                Intent myIntent = new Intent(MenuActivity.this, MapActivity.class);
+                MenuActivity.this.startActivity(myIntent);
+            }
+        });
     }
 
     @Override

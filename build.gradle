@@ -19,7 +19,7 @@ android {
 }
 
 dependencies {
-    compile 'com.google.android.gms:play-services:4.3.23'//3.2.25'
+    compile 'com.google.android.gms:play-services:3.2.25'//4.3.23'
     compile 'com.android.support:appcompat-v7:19.1.0'
     compile 'com.android.support:support-v4:19.1.0'
     compile 'com.koushikdutta.ion:ion:1.2.4'
