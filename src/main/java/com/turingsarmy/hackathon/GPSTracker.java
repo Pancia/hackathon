@@ -48,7 +48,12 @@ public class GPSTracker extends Service implements LocationListener {
     public static final double BRDWLK_LON = -122.020597;
     public static final double DWNTWN_LAT = 36.973067;
     public static final double DWNTWN_LON = -122.026563;
+    public static final double SCIHIL_LAT = 36.998241;
+    public static final double SCIHIL_LON = -122.060959;
+    public static final double BASKIN_LAT = 37.000563;
+    public static final double BASKIN_LON = -122.063051;
     private String currentCollege = "none";
+
 
     // flag for GPS status
     boolean isGPSEnabled = false;

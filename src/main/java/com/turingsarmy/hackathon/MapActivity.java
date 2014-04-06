@@ -176,49 +176,52 @@ public class MapActivity extends Activity implements GoogleMap.OnMapClickListene
         String tappedCollege="NOTHING";
 
         tryDist = distance(lat, lon, GPSTracker.OAKES_LAT, GPSTracker.OAKES_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST) {
+        if (tryDist < GPSTracker.RAD_DIST)
             tappedCollege="Oakes College";
-        }
         tryDist = distance(lat, lon, GPSTracker.EIGHT_LAT, GPSTracker.EIGHT_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST){
+        if (tryDist < GPSTracker.RAD_DIST)
             tappedCollege="College Eight";
-        }
         tryDist = distance(lat, lon, GPSTracker.NINE_LAT, GPSTracker.NINE_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST){
+        if (tryDist < GPSTracker.RAD_DIST)
             tappedCollege="College Nine";
-        }
         tryDist = distance(lat, lon, GPSTracker.TEN_LAT, GPSTracker.TEN_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST){
+        if (tryDist < GPSTracker.RAD_DIST)
             tappedCollege="College Ten";
-        }
         tryDist = distance(lat, lon, GPSTracker.PORTER_LAT, GPSTracker.PORTER_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST){
+        if (tryDist < GPSTracker.RAD_DIST)
             tappedCollege="Porter College";
-        }
         tryDist = distance(lat, lon, GPSTracker.KRESGE_LAT, GPSTracker.KRESGE_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST){
+        if (tryDist < GPSTracker.RAD_DIST)
             tappedCollege="Kresge College";
-        }
         tryDist = distance(lat, lon, GPSTracker.CROWN_LAT, GPSTracker.CROWN_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST){
+        if (tryDist < GPSTracker.RAD_DIST)
             tappedCollege="Crown College";
-        }
         tryDist = distance(lat, lon, GPSTracker.CROWNAPT_LAT, GPSTracker.CROWNAPT_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST_MED){
+        if (tryDist < GPSTracker.RAD_DIST_MED)
             tappedCollege="Crown College";
-        }
         tryDist = distance(lat, lon, GPSTracker.MERRILL_LAT, GPSTracker.MERRILL_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST){
+        if (tryDist < GPSTracker.RAD_DIST)
             tappedCollege="Merrill College";
-        }
         tryDist = distance(lat, lon, GPSTracker.STEVEN_LAT, GPSTracker.STEVEN_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST){
+        if (tryDist < GPSTracker.RAD_DIST)
             tappedCollege="Stevenson College";
-        }
         tryDist = distance(lat, lon, GPSTracker.COWELL_LAT, GPSTracker.COWELL_LON, 'K');
-        if (tryDist < GPSTracker.RAD_DIST){
+        if (tryDist < GPSTracker.RAD_DIST)
             tappedCollege="Cowell College";
-        }
+        tryDist = distance(lat, lon, GPSTracker.BRDWLK_LAT, GPSTracker.BRDWLK_LON, 'K');
+        if (tryDist < GPSTracker.RAD_DIST)
+            tappedCollege="Boardwalk";
+        tryDist = distance(lat, lon, GPSTracker.DWNTWN_LAT, GPSTracker.DWNTWN_LON, 'K');
+        if (tryDist < GPSTracker.RAD_DIST)
+            tappedCollege="Downtown";
+        tryDist = distance(lat, lon, GPSTracker.SCIHIL_LAT, GPSTracker.SCIHIL_LON, 'K');
+        if (tryDist < GPSTracker.RAD_DIST)
+            tappedCollege="Science Hill";
+        tryDist = distance(lat, lon, GPSTracker.BASKIN_LAT, GPSTracker.BASKIN_LON, 'K');
+        if (tryDist < GPSTracker.RAD_DIST)
+            tappedCollege="Baskin Engineering";
+
+
         if(!tappedCollege.contentEquals("NOTHING"))
             Toast.makeText(getApplicationContext(), tappedCollege, Toast.LENGTH_LONG).show();
     }
