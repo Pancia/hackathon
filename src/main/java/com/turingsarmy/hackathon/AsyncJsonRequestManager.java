@@ -1,6 +1,5 @@
 package com.turingsarmy.hackathon;
 
-
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -12,19 +11,46 @@ import com.koushikdutta.ion.Ion;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * @version 2
- * <br> CREATED: 7/11/13
- * <br> LAST MODIFIED 11/23/13 BY: Anthony
- */
+
+//EXAMPLE CODE!
+//new AsyncJsonRequestManager(this)
+//        .setAction(Actions.ADDUSER)
+//        .setRequestBody(<PUT A HASHMAP HERE WITH AJRM.Keys and AJRM.Values MAKE THEM ALL LOWERCASE>)
+//        .setCallback(new MyFutureTask() {
+//              @Override
+//              public void onRequestCompleted(JsonObject json) {
+//                  Log.i(TAG, json.toString());
+//              }
+//
+//              @Override
+//              public void onRequestFailed(Exception e) {
+//                  e.printStackTrace();
+//              }
+//              })
+//          .execute();
 public class AsyncJsonRequestManager extends AsyncTask<String, String, String> {
 
     private Activity myActivity;
     private String TAG;
 
+    public enum Actions {
+        ADDUSER, UPDATEUSER, POSTGAMEMOVE, GETGAMESTATUS, JOINGAME
+    }
+
+    public enum Keys {
+        USERNAME, PASSWORD, EMAIL, COLLEGE, LOCATION, GAMEMOVE, GAMEMODE//, WINS, LOSSES, POINTS
+    }
+
+    public enum Values {
+        DEFENDER, ATTACKER
+    }
+
+    //receive values: USERNAME, GAMEMOVE
+
     //localhost = http://localhost:10080/ when using GAE
     //remote    = http://ucscslugger.appspot.com/test.py/
-    private String url = "http://ucscslugger.appspot.com/test.py";
+    private String baseUrl = "http://ucscslugger.appspot.com/";
+    private String endUrl = "test.py";
 
     private HashMap<String, String> myHashMap = new HashMap<String, String>();
     private boolean hasCallback = false;
@@ -33,6 +59,11 @@ public class AsyncJsonRequestManager extends AsyncTask<String, String, String> {
     public AsyncJsonRequestManager(Activity activity) {
         this.myActivity = activity;
         this.TAG = "AJRM#";
+    }
+
+    public AsyncJsonRequestManager setAction(Actions action) {
+        endUrl = action.toString().toLowerCase() + ".py";
+        return this;
     }
 
     public AsyncJsonRequestManager setCallback(MyFutureTask listnener) {
@@ -46,15 +77,10 @@ public class AsyncJsonRequestManager extends AsyncTask<String, String, String> {
         return this;
     }
 
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-//        if (!MyConnectivity.isOnline()) {
-//            cancel(true);
-//            showGetInternetDialog();
-//        }
-    }
+//    @Override
+//    protected void onPreExecute() {
+//        super.onPreExecute();
+//    }
 
     @Override
     protected String doInBackground(String... arg0) {
@@ -68,23 +94,26 @@ public class AsyncJsonRequestManager extends AsyncTask<String, String, String> {
             }
         }
 
-        Ion.with(myActivity, url)
+        Ion.with(myActivity, baseUrl + endUrl)
                 .setLogging(TAG, Log.INFO)
                 .setJsonObjectBody(json)
                 .asJsonObject()
                 .setCallback(new FutureCallback<JsonObject>() {
                     @Override
                     public void onCompleted(Exception e, JsonObject result) {
-                        myFutureTask.onRequestCompleted(result);
+                        if (e == null)
+                            myFutureTask.onRequestCompleted(result);
+                        else
+                            myFutureTask.onRequestFailed(e);
                     }
                 });
 
         return null;
     }
 
-    @Override
-    protected void onPostExecute(String file_url) {
-        super.onPostExecute(file_url);
-    }
+//    @Override
+//    protected void onPostExecute(String s) {
+//        super.onPostExecute(s);
+//    }
 
 }
