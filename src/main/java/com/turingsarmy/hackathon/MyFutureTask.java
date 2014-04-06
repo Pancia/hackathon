@@ -1,11 +1,9 @@
 package com.turingsarmy.hackathon;
 
-import com.google.gson.JsonObject;
+import org.json.JSONObject;
 
 public interface MyFutureTask {
 
-    public void onRequestCompleted(JsonObject json);
-
-    public void onRequestFailed(Exception e);
+    public void onRequestCompleted(JSONObject json);
 
 }

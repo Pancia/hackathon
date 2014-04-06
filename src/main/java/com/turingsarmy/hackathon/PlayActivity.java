@@ -10,9 +10,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
+
 public class PlayActivity extends ActionBarActivity {
 
     private Button playfriends, fight;
+    private String playerType;
     private TextView location;
     private String home = "Oakes"; //TODO IN FUTURE PING SERVER FOR YOUR HOME COLLEGE
 
@@ -31,9 +36,11 @@ public class PlayActivity extends ActionBarActivity {
             location.setText("You are currently in " + track.getCurrentCollege().toString());
             if (track.getCurrentCollege().toString().equals(home)){
                 fight.setText("Defend " + track.getCurrentCollege().toString());
+                playerType = "defender";
             }
             else {
                 fight.setText("Fight against " + track.getCurrentCollege().toString());
+                playerType = "attacker";
             }
         }
 
@@ -47,36 +54,56 @@ public class PlayActivity extends ActionBarActivity {
                 else {
                     Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
                     PlayActivity.this.startActivity(myIntent);
-                  //  tryToJoinGame();
+                    tryToJoinGame();
                 }
             }
         });
     }
-//
-//    private void tryToJoinGame() {
-//        HashMap<String, String> map = new HashMap<String, String>();
-//        map.put("username", "pancia");
-//        map.put("gamemode", "defender");
-//        new AsyncJsonRequestManager(PlayActivity.this)
-//                //.setAction(AsyncJsonRequestManager.Actions.JOINGAME)
-//                .setRequestBody(map)
-//                .setCallback(new MyFutureTask() {
-//                    @Override
-//                    public void onRequestCompleted(JsonObject json) {
-//                        String response = String.valueOf(json.get("response"));
-//                        if (response.equals("try again")) {
-//                            tryToJoinGame();
-//                        } else {
-//
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onRequestFailed(Exception e) {
-//
-//                    }
-//                }).execute();
-//    }
+
+    private void tryToJoinGame() {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("username", "pancia");
+        map.put("gamemode", "defender");
+        final GPSTracker track = new GPSTracker(this);
+
+        AsyncJsonRequestManager man = new AsyncJsonRequestManager(PlayActivity.this);  //TODO do logic for which game to play
+                man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
+                man.setRequestBody(map);
+                man.setCallback(new MyFutureTask() {
+                    @Override
+                    public void onRequestCompleted(JSONObject json) {
+                        String response = "";
+                        String p2_username = "";
+                        response = json.optString("response");
+                        p2_username = json.optString("p2_username");
+
+                        //invariant, response or p2_username will be null
+
+                        if (response.equals("try again")) {
+                            tryToJoinGame();
+                        } else if (track.getCurrentCollege().equals(home) && response.equals("added to game")){
+                            Intent myIntent = new Intent(PlayActivity.this, DefenseLobbyActivity.class);
+                            PlayActivity.this.startActivity(myIntent);
+                        } else if (response.equals("game already exists")){
+                            createToast("You are currently in a game. Please wait until your current game ends before starting a new one.");
+                        } else if (response.equals("UserDatabase is null")){
+                            createToast("Your data base is empty.");
+                            Intent myIntent = new Intent(PlayActivity.this, MainActivity.class);
+                            PlayActivity.this.startActivity(myIntent);
+                        } else if (p2_username.equals("pve")){
+                            Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
+                            PlayActivity.this.startActivity(myIntent);
+                        } else if (!p2_username.equals("")){
+                            Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
+                            PlayActivity.this.startActivity(myIntent);
+                        }
+                    }
+                }).execute();
+    }
+
+    private void createToast (String s){
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
