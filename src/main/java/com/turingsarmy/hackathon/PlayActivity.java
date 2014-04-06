@@ -40,15 +40,43 @@ public class PlayActivity extends ActionBarActivity {
         fight.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
                 if (track.getCurrentCollege().toString().equals("none")) {
+                    Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
+                    PlayActivity.this.startActivity(myIntent);
                     Toast.makeText(getApplicationContext(), "Option currently unavailable, move to the nearest college to enable", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
+                    Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
                     PlayActivity.this.startActivity(myIntent);
+                  //  tryToJoinGame();
                 }
             }
         });
     }
+//
+//    private void tryToJoinGame() {
+//        HashMap<String, String> map = new HashMap<String, String>();
+//        map.put("username", "pancia");
+//        map.put("gamemode", "defender");
+//        new AsyncJsonRequestManager(PlayActivity.this)
+//                //.setAction(AsyncJsonRequestManager.Actions.JOINGAME)
+//                .setRequestBody(map)
+//                .setCallback(new MyFutureTask() {
+//                    @Override
+//                    public void onRequestCompleted(JsonObject json) {
+//                        String response = String.valueOf(json.get("response"));
+//                        if (response.equals("try again")) {
+//                            tryToJoinGame();
+//                        } else {
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onRequestFailed(Exception e) {
+//
+//                    }
+//                }).execute();
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
