@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <EditText
+        android:layout_width="@dimen/dialog_fixed_width_minor"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:gravity="center"
+        android:textSize="25dp"
+        android:id="@+id/signup_edittext_username"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp" />
+
+    <EditText
+        android:layout_width="@dimen/dialog_fixed_width_minor"
+        android:layout_height="wrap_content"
+        android:hint="Password"
+        android:gravity="center"
+        android:id="@+id/signup_edittext_password"
+        android:textSize="25dp"
+        android:layout_below="@+id/signup_edittext_username"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="@dimen/dialog_fixed_width_minor"
+        android:layout_height="wrap_content"
+        android:hint="UCSC Email"
+        android:gravity="center"
+        android:id="@+id/signup_edittext_email"
+        android:textSize="25dp"
+        android:layout_below="@+id/signup_edittext_password"
+        android:layout_alignLeft="@+id/signup_edittext_password"
+        android:layout_alignStart="@+id/signup_edittext_password" />
+
+    <Spinner
+        android:layout_width="@dimen/dialog_fixed_width_minor"
+        android:layout_height="wrap_content"
+        android:id="@+id/signup_spinner_college"
+        android:layout_below="@+id/signup_edittext_email"
+        android:layout_centerHorizontal="true"
+        android:prompt="@string/pick_college"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit"
+        android:textSize="25dp"
+        android:id="@+id/signup_button_submit"
+        android:layout_below="@+id/signup_spinner_college"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
