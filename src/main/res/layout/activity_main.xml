@@ -43,6 +43,5 @@
         android:textSize="25dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/activitymain_edittext_password"/>
->>>>>>> origin/Rachelle
 
 </RelativeLayout>

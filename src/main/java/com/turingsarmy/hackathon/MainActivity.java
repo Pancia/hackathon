@@ -1,9 +1,11 @@
 package com.turingsarmy.hackathon;
 
 import android.content.Intent;
+import android.support.v7.app.ActionBarActivity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,7 +13,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.gson.JsonObject;
+
 public class MainActivity extends ActionBarActivity {
+
+    private final static String TAG = MainActivity.class.getSimpleName();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,13 +25,14 @@ public class MainActivity extends ActionBarActivity {
         Resources res = getResources();
         setContentView(R.layout.activity_main);
 
-        /**********CAMERONS TEST CODE***************************************************************
-        GPSTracker gps = new GPSTracker(this);
-        TextView gpsEnable = (TextView)findViewById(R.id.gps_enable);
-        TextView gpsLat = (TextView)findViewById(R.id.gps_lat);
-        TextView gpsLong = (TextView)findViewById(R.id.gps_long);
-        addListenerOnButton(gps, gpsEnable, gpsLat, gpsLong);
-        *******************************************************************************************/
+        new AsyncJsonRequestManager(this)
+                .setCallback(new MyFutureTask() {
+                    @Override
+                    public void onRequestCompleted(JsonObject json) {
+                        Log.i(TAG, json.toString());
+                    }
+                })
+                .execute();
 
         final Button login = (Button) findViewById(R.id.activitymain_button_login);
         final Button signup = (Button) findViewById(R.id.activitymain_button_signup);
@@ -61,32 +68,7 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    /**********CAMERONS TEST CODE*******************************************************************
-    public void addListenerOnButton(final GPSTracker gps, final TextView ena, final TextView lat, final TextView lon) {
-
-        Button gpsButton = (Button) findViewById(R.id.gps_button);
-        gpsButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                final double latitude=gps.getLatitude();
-                final double longitude=gps.getLongitude();
-
-                if(gps.canGetLocation()){
-                    ena.setText("GPS AVAILABLE");
-                    lat.setText("Latitude: " + Double.toString(latitude));
-                    lon.setText("Longitude: " + Double.toString(longitude));
-                } else {
-                    ena.setText("GPS UNAVAILABLE");
-                    lat.setText("Latitude:N/A");
-                    lon.setText("Longitude:N/A");
-                }
-                gps.stopUsingGPS();
-            }
-        });
-    }
-    ***********************************************************************************************/
-
-
-        @Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         
         // Inflate the menu; this adds items to the action bar if it is present.
