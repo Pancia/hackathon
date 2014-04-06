@@ -26,7 +26,7 @@
     <EditText
         android:layout_width="@dimen/dialog_fixed_width_minor"
         android:layout_height="wrap_content"
-        android:hint="Email"
+        android:hint="UCSC Email"
         android:gravity="center"
         android:id="@+id/signup_edittext_email"
         android:textSize="25dp"
