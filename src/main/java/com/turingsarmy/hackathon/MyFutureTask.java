@@ -6,4 +6,6 @@ public interface MyFutureTask {
 
     public void onRequestCompleted(JsonObject json);
 
+    public void onRequestFailed(Exception e);
+
 }

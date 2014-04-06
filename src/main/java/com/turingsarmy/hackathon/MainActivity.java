@@ -2,11 +2,8 @@ package com.turingsarmy.hackathon;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import com.google.gson.JsonObject;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -16,15 +13,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        new AsyncJsonRequestManager(this)
-                .setCallback(new MyFutureTask() {
-                    @Override
-                    public void onRequestCompleted(JsonObject json) {
-                        Log.i(TAG, json.toString());
-                    }
-                })
-                .execute();
     }
 
     @Override
