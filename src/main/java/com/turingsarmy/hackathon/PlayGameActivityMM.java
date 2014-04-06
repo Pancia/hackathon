@@ -1,22 +1,24 @@
 package com.turingsarmy.hackathon;
 
 import android.graphics.Color;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public class PlayGameActivityMM extends ActionBarActivity {
 
     private static final String TAG = PlayGameActivityMM.class.getSimpleName();
     private int[] guess = new int[3];
-    private int[] solution = {(int) Math.random()%3, (int) Math.random()%3, (int) Math.random()%3};
+    private int[] solution = new int[3];
 
     private Button red0;
     private Button blu0;
@@ -85,15 +87,34 @@ public class PlayGameActivityMM extends ActionBarActivity {
 
     private int currentRow = 0;
 
-//    private String rTag = (String)red0.getTag();
-//    private String bTag = (String)blu0.getTag();
-//    private String gTag = (String)grn0.getTag();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mm);
-        Log.i(TAG, "onCreate()");
+        final int seed = (int) System.currentTimeMillis();
+
+        Random random = new Random(seed);
+        int rand1, rand2, rand3;
+
+        rand1 = random.nextInt()%3;
+        rand2 = random.nextInt()%3;
+        rand3 = random.nextInt()%3;
+
+        while (rand1<0){
+            rand1 = random.nextInt()%3;
+        }
+
+        while (rand2<0){
+            rand2 = random.nextInt()%3;
+        }
+
+        while (rand3<0){
+            rand3 = random.nextInt()%3;
+        }
+
+        solution[0] = rand1;
+        solution[1] = rand2;
+        solution[2] = rand3;
 
         red0 = (Button) findViewById(R.id.activity_mm_red0);
         blu0 = (Button) findViewById(R.id.activity_mm_blu0);
@@ -156,14 +177,11 @@ public class PlayGameActivityMM extends ActionBarActivity {
         ges7.setText(textSub7);
         ges8.setText(textSub8);
         ges9.setText(textSub9);
-
-        Log.i(TAG, "onCreate(done)");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        Log.i(TAG, "onStart()");
         setOnClickListenerForRow(currentRow);
     }
 
@@ -303,28 +321,55 @@ public class PlayGameActivityMM extends ActionBarActivity {
     public void checkAns(final TextView tv){
         int numC = 0;
         int numW = 0;
-        for(int i = 0; i < guess.length; i++){
-            for(int j = 0; j < solution.length; j++){
-                if(solution[j] == guess[i]){
-                    if (i == j)
+        int [] solutionCopy = new int [3];
+        int [] guessCopy = new int[3];
+        guessCopy[0] = guess[0];
+        guessCopy[1] = guess[1];
+        guessCopy[2] = guess[2];
+        solutionCopy[0] = solution[0];
+        solutionCopy[1] = solution[1];
+        solutionCopy[2] = solution[2];
+        Toast.makeText(getApplicationContext(), "Solution: " + solution[0] + " " + solution[1] + " " + solution[2], Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Guess: " + guess[0] + " " + guess[1] + " " + guess[2], Toast.LENGTH_SHORT).show();
+
+        for(int i = 0; i < guessCopy.length; i++){
+            if (solutionCopy[i] == guessCopy[i]){
+                solutionCopy[i] = 100;
+                guessCopy[i] = 100;
+                numC++;
+            }
+        }
+
+        for (int i = 0; i < guessCopy.length; i++){
+            for(int j = 0; j < solutionCopy.length; j++){
+                if(solutionCopy[j] == guessCopy[i] && guessCopy[i]<100){
+                    if(i == j){
                         numC++;
-                    else
+                    }
+                    else{
                         numW++;
+                    }
+                solutionCopy[j]=100;
+                break;
                 }
             }
         }
 
         String out = "";
-        while(numC>0){
-            numC--;
-            out+="C ";
+        if(numC == solution.length){
+            tv.setText("You won resources for your college");
         }
-        while(numW>0){
-            numW--;
-            out+="W ";
-        }
+        else{
+            while(numC>0){
+                numC--;
+                out+="C ";
+            }
+            while(numW>0){
+                numW--;
+                out+="W ";
+            }
 
-        tv.setText(out);
+            tv.setText(out);
+        }
     }
-
 }

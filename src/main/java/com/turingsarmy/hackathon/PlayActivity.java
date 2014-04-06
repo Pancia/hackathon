@@ -10,10 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
-
-import java.util.HashMap;
-
 public class PlayActivity extends ActionBarActivity {
 
     private Button playfriends, fight;
@@ -49,29 +45,38 @@ public class PlayActivity extends ActionBarActivity {
                     Toast.makeText(getApplicationContext(), "Option currently unavailable, move to the nearest college to enable", Toast.LENGTH_SHORT).show();
                 }
                 else {
-                    tryToJoinGame();
+                    Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
+                    PlayActivity.this.startActivity(myIntent);
+                  //  tryToJoinGame();
                 }
             }
         });
     }
-
-    private void tryToJoinGame() {
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("username", "pancia");
-        map.put("gamemode", "defender");
-        new AsyncJsonRequestManager(PlayActivity.this)
-                //.setAction(AsyncJsonRequestManager.Actions.JOINGAME)
-                .setRequestBody(map)
-                .setCallback(new MyFutureTask() {
-                    @Override
-                    public void onRequestCompleted(JsonObject json) {
-                        String response = String.valueOf(json.get("response"));
-                        if (response.equals("try again")){
-                            tryToJoinGame();
-                        } else ()
-                    }
-                }).execute();
-    }
+//
+//    private void tryToJoinGame() {
+//        HashMap<String, String> map = new HashMap<String, String>();
+//        map.put("username", "pancia");
+//        map.put("gamemode", "defender");
+//        new AsyncJsonRequestManager(PlayActivity.this)
+//                //.setAction(AsyncJsonRequestManager.Actions.JOINGAME)
+//                .setRequestBody(map)
+//                .setCallback(new MyFutureTask() {
+//                    @Override
+//                    public void onRequestCompleted(JsonObject json) {
+//                        String response = String.valueOf(json.get("response"));
+//                        if (response.equals("try again")) {
+//                            tryToJoinGame();
+//                        } else {
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onRequestFailed(Exception e) {
+//
+//                    }
+//                }).execute();
+//    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
