@@ -36,6 +36,13 @@ public class MenuActivity extends ActionBarActivity {
                 MenuActivity.this.startActivity(myIntent);
             }
         });
+        challenges.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v)
+            {
+                Intent myIntent = new Intent(MenuActivity.this, ChallengesActivity.class);
+                MenuActivity.this.startActivity(myIntent);
+            }
+        });
     }
 
     @Override

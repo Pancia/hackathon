@@ -35,6 +35,8 @@ public class MapActivity extends Activity implements GoogleMap.OnMapClickListene
         LatLng merrillLtLn = new LatLng(36.9995, -122.05279);
         LatLng stevenLtLn = new LatLng(36.997, -122.0514);
         LatLng cowellLtLn = new LatLng(36.9965, -122.0548);
+        LatLng brdwlkLtLn = new LatLng(36.960586, -122.020597);
+        LatLng dwntwnLtLn = new LatLng(36.973067, -122.026563);
 
         ucsc_map.setMyLocationEnabled(true);
         ucsc_map.moveCamera(CameraUpdateFactory.newLatLngZoom(ucscruz, 14));
@@ -94,6 +96,16 @@ public class MapActivity extends Activity implements GoogleMap.OnMapClickListene
                 .center(cowellLtLn)
                 .radius(GPSTracker.RAD_DIST);
         Circle cowellCircle = ucsc_map.addCircle(cowellOptions);
+
+        CircleOptions brdwlkOptions = new CircleOptions()
+                .center(brdwlkLtLn)
+                .radius(GPSTracker.RAD_DIST_LRG);
+        Circle brdwlkCircle = ucsc_map.addCircle(brdwlkOptions);
+
+        CircleOptions dwntwnOptions = new CircleOptions()
+                .center(dwntwnLtLn)
+                .radius(GPSTracker.RAD_DIST_LRG);
+        Circle dwntwnCircle = ucsc_map.addCircle(dwntwnOptions);
 
         ucsc_map.setOnMapClickListener(this);
 

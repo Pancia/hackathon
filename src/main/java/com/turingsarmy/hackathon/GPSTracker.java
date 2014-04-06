@@ -21,6 +21,7 @@ public class GPSTracker extends Service implements LocationListener {
     public static final int RAD_DIST = 150;
     public static final int RAD_DIST_MED = 120;
     public static final int RAD_DIST_SMALL = 100;
+    public static final int RAD_DIST_LRG = 400;
     public static final double OAKES_LAT = 36.9889;
     public static final double OAKES_LON = -122.06422;
     public static final double EIGHT_LAT = 36.9917;
@@ -43,6 +44,10 @@ public class GPSTracker extends Service implements LocationListener {
     public static final double STEVEN_LON = -122.0514;
     public static final double COWELL_LAT = 36.9965;
     public static final double COWELL_LON = -122.0548;
+    public static final double BRDWLK_LAT = 36.960586;
+    public static final double BRDWLK_LON = -122.020597;
+    public static final double DWNTWN_LAT = 36.973067;
+    public static final double DWNTWN_LON = -122.026563;
     private String currentCollege = "none";
 
     // flag for GPS status
@@ -271,6 +276,16 @@ public class GPSTracker extends Service implements LocationListener {
         if (tryDist < RAD_DIST){
             lowDist = tryDist;
             currentCollege="Cowell";
+        }
+        tryDist = distance(lat, lon, BRDWLK_LAT, BRDWLK_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
+            currentCollege="Boardwalk";
+        }
+        tryDist = distance(lat, lon, DWNTWN_LAT, DWNTWN_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
+            currentCollege="Downtown";
         }
         if (lowDist > RAD_DIST)
             currentCollege = "none";
