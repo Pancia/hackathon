@@ -1,5 +1,6 @@
 package com.turingsarmy.hackathon;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -34,7 +35,8 @@ public class SignupActivity extends ActionBarActivity {
                 if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty() && !username.toString().isEmpty()){
                     String userEmail = email.getText().toString();
                     if (userEmail.contains("@ucsc.edu")){
-                        Toast.makeText(getApplicationContext(), "Good Job", Toast.LENGTH_SHORT).show();
+                        Intent myIntent = new Intent(SignupActivity.this, MenuActivity.class);
+                        SignupActivity.this.startActivity(myIntent);
                     }
                     else{
                         Toast.makeText(getApplicationContext(), "Please enter a valid UCSC email", Toast.LENGTH_SHORT).show();
