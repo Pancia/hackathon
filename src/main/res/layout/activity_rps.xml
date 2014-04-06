@@ -103,6 +103,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="33"
+            android:textSize="25dp"
             android:text="ROCK"
             android:id="@+id/activity_rps_rock"/>
 
@@ -110,6 +111,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="33"
+            android:textSize="25dp"
             android:text="PAPER"
             android:id="@+id/activity_rps_paper"/>
 
@@ -117,6 +119,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="33"
+            android:textSize="25dp"
             android:text="SCISSOR"
             android:id="@+id/activity_rps_scissor" />
 

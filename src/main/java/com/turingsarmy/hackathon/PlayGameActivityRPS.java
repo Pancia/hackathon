@@ -83,6 +83,10 @@ public class PlayGameActivityRPS extends ActionBarActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Submit toss
+                rock.setEnabled(false);
+                scissor.setEnabled(false);
+                paper.setEnabled(false);
+                submit.setEnabled(false);
             }
         });
 
@@ -101,6 +105,10 @@ public class PlayGameActivityRPS extends ActionBarActivity {
 
             public void onFinish() {
                 vicTim.setText("0:00");//change to win/lose
+                rock.setEnabled(false);
+                scissor.setEnabled(false);
+                paper.setEnabled(false);
+                submit.setEnabled(false);
             }
         }.start();
     }
