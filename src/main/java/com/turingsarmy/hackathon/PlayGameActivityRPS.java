@@ -1,7 +1,9 @@
 package com.turingsarmy.hackathon;
 
+import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,10 +12,34 @@ import android.widget.TextView;
 
 public class PlayGameActivityRPS extends ActionBarActivity {
 
+    private String p1sel = "SELECT!";
+    private String p2sel = "CASTING";
+    private String time = "0:15";
+    private int tTotal = 15;
+    private int timer;
+    private boolean win = false;
+    private TextView tvP1Choice;
+    private TextView vicTim;
+    private Button rock;
+    private Button paper;
+    private Button scissor;
+    private Button submit;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rps);
+
+
+        //Timer and Victory
+        vicTim = (TextView) findViewById(R.id.activity_rps_time);
+        vicTim.setText(time);
+
+        //Player selections
+        tvP1Choice = (TextView) findViewById(R.id.activity_rps_p1_sel);
+        tvP1Choice.setText(p1sel);
+        TextView tvp2Choice = (TextView) findViewById(R.id.activity_rps_p2_sel);
+        tvp2Choice.setText(p2sel);
 
         //Display Names
         final String p1Name = "Jeff";
@@ -24,31 +50,59 @@ public class PlayGameActivityRPS extends ActionBarActivity {
         tvEnemyName.setText(p2Name);
 
         //Buttons
-        final Button rock = (Button) findViewById(R.id.activity_rps_rock);
-        final Button paper = (Button) findViewById(R.id.activity_rps_paper);
-        final Button scissor = (Button) findViewById(R.id.activity_rps_scissor);
-        final Button submit = (Button) findViewById(R.id.activity_rps_submit);
+        rock = (Button) findViewById(R.id.activity_rps_rock);
+        paper = (Button) findViewById(R.id.activity_rps_paper);
+        scissor = (Button) findViewById(R.id.activity_rps_scissor);
+        submit = (Button) findViewById(R.id.activity_rps_submit);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        timer = tTotal;
 
         rock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Throw Rock
+                p1sel = "ROCK";
+                tvP1Choice.setText(p1sel);
             }
         });
         paper.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Throw Paper
+                p1sel = "PAPER";
+                tvP1Choice.setText(p1sel);
             }
         });
         scissor.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Throw Scissor
+                p1sel = "SCISSOR";
+                tvP1Choice.setText(p1sel);
             }
         });
+
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Submit toss
             }
         });
+
+        CountDownTimer start = new CountDownTimer(tTotal * 1000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                timer--;
+                if (timer < 10) {
+                    time = "0:0" + Integer.toString(timer);
+                    vicTim.setText(time);
+                } else {
+                    time = "0:" + Integer.toString(timer);
+                    vicTim.setText(time);
+                }
+            }
+
+            public void onFinish() {
+                vicTim.setText("0:00");//change to win/lose
+            }
+        }.start();
     }
 
     @Override

@@ -47,6 +47,35 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="75">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:gravity="center"
+                    android:text="SCISSOR"
+                    android:textSize="31sp"
+                    android:id="@+id/activity_rps_p1_sel"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="20"
+                    android:layout_gravity="center"
+                    android:id="@+id/activity_rps_time"
+                    android:text="0:00"
+                    android:textSize="39sp"
+                    android:gravity="center"
+                    android:textColor="#ff0a00" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:gravity="center"
+                    android:text="SCISSOR"
+                    android:textSize="31sp"
+                    android:id="@+id/activity_rps_p2_sel"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -54,11 +83,14 @@
         <Button
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:text="SUBMIT"
+            android:text="CAST"
+            android:textSize="32dp"
             android:layout_gravity="center_vertical"
             android:id="@+id/activity_rps_submit"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true" />
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffea45"
+            android:background="#d30309" />
 
     <LinearLayout
 
@@ -86,7 +118,7 @@
             android:layout_height="match_parent"
             android:layout_weight="33"
             android:text="SCISSOR"
-            android:id="@+id/activity_rps_scissor"/>
+            android:id="@+id/activity_rps_scissor" />
 
         </LinearLayout>
 
