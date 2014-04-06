@@ -204,6 +204,7 @@ public class GPSTracker extends Service implements LocationListener {
 
     public String getCurrentCollege()
     {
+        determineCollege();
         return currentCollege;
     }
 
