@@ -10,21 +10,10 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="User Statistics"
+        android:text="Top Colleges"
+        android:textSize="35dp"
+        android:id="@+id/top_col"
         android:background="@color/slug_yel"
-        android:textSize="45dp"
-        android:id="@+id/textView"
-        android:gravity="center"
-        android:layout_gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="85dp"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text=""
-        android:background="@color/slug_blu"
-        android:textSize="45dp"
-        android:id="@+id/textView"
         android:gravity="center"
         android:layout_gravity="center_horizontal" />
 
@@ -32,7 +21,18 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="\tAreas Visited:\t\t\t\t\t\t\t\t1/12"
+        android:text="\tOakes:\t\t\t\t\t\t\t\t\t\t\t\t\t\t1426res"
+        android:textSize="25dp"
+        android:id="@+id/col1"
+        android:background="@color/slug_blu"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tEight:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\1125res"
         android:background="@color/slug_blu"
         android:textSize="25dp"
         android:id="@+id/textView"
@@ -43,7 +43,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="\tPvP Battles Won:\t\t\t\t8"
+        android:text="\tPorter:\t\t\t\t\t\t\t\t\t\t\t\t\t\t981res"
         android:background="@color/slug_blu"
         android:textSize="25dp"
         android:id="@+id/textView"
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="\tPvP Battles Lost:\t\t\t\t\t5"
+        android:text="\tCrown:\t\t\t\t\t\t\t\t\t\t\t\t\t\t854res"
         android:background="@color/slug_blu"
         android:textSize="25dp"
         android:id="@+id/textView"
@@ -65,7 +65,29 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="\tPvE Battles Won:\t\t\t\t\t3"
+        android:text="\tNine:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t534res"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Top Players"
+        android:textSize="35dp"
+        android:id="@+id/textView"
+        android:background="@color/slug_yel"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tTeamSlugger:\t\t\t\t\t\t1120res"
         android:background="@color/slug_blu"
         android:textSize="25dp"
         android:id="@+id/textView"
@@ -76,7 +98,7 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="\tPvE Battles Lost:\t\t\t\t\t4"
+        android:text="\tButterball:\t\t\t\t\t\t\t\t\t\t525res"
         android:background="@color/slug_blu"
         android:textSize="25dp"
         android:id="@+id/textView"
@@ -87,13 +109,34 @@
         android:layout_width="match_parent"
         android:layout_height="35dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="\tResource +/-:\t\t\t\t\t\t\t\t+2"
+        android:text="\tDijkstra:\t\t\t\t\t\t\t\t\t\t\t\t281res"
         android:background="@color/slug_blu"
         android:textSize="25dp"
         android:id="@+id/textView"
         android:gravity="left"
         android:layout_gravity="center_horizontal" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tMentorDave:\t\t\t\t\t\t\t254res"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tSammySlug:\t\t\t\t\t\t\t86res"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
@@ -105,3 +148,4 @@
         android:gravity="left"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>
+

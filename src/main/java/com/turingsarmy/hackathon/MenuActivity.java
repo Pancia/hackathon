@@ -43,6 +43,20 @@ public class MenuActivity extends ActionBarActivity {
                 MenuActivity.this.startActivity(myIntent);
             }
         });
+        stats.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v)
+            {
+                Intent myIntent = new Intent(MenuActivity.this, StatsActivity.class);
+                MenuActivity.this.startActivity(myIntent);
+            }
+        });
+        leaderboard.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v)
+            {
+                Intent myIntent = new Intent(MenuActivity.this, LeaderActivity.class);
+                MenuActivity.this.startActivity(myIntent);
+            }
+        });
     }
 
     @Override

@@ -216,7 +216,7 @@ public class GPSTracker extends Service implements LocationListener {
         return currentCollege;
     }
 
-    public void determineCollege()
+    private void determineCollege()
     {
         double tryDist, lowDist=Double.MAX_VALUE;
         double lat = getLatitude();

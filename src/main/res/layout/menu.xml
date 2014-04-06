@@ -2,11 +2,13 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/slug_yel"
     android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/slug_yel"
         android:layout_weight="20">
 
         <Button
@@ -14,6 +16,8 @@
             android:layout_height="match_parent"
             android:text="Challenges"
             android:id="@+id/menu_button_challenges"
+            android:textColor="@color/slug_yel"
+            android:background="@color/slug_blu"
             android:textSize="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -22,6 +26,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:background="@color/slug_yel"
         android:layout_height="0dp"
         android:layout_weight="20">
 
@@ -30,6 +35,8 @@
             android:layout_height="match_parent"
             android:text="Stats"
             android:id="@+id/menu_button_stats"
+            android:background="@color/slug_blu"
+            android:textColor="@color/slug_yel"
             android:textSize="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -39,14 +46,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:background="@color/slug_yel"
         android:layout_weight="20">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/slug_blu"
             android:text="Leaderboard"
             android:id="@+id/menu_button_leaderboard"
             android:textSize="50dp"
+            android:textColor="@color/slug_yel"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
 
@@ -60,8 +70,10 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/slug_blu"
             android:text="Map"
             android:id="@+id/menu_button_map"
+            android:textColor="@color/slug_yel"
             android:textSize="50dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true" />
@@ -76,8 +88,10 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/slug_blu"
             android:text="Play"
             android:id="@+id/menu_button_play"
+            android:textColor="@color/slug_yel"
             android:textSize="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
