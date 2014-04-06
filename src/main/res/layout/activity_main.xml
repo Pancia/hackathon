@@ -9,9 +9,39 @@
     tools:context="com.turingsarmy.hackathon.MainActivity">
 
     <Button
-        android:text="@string/hello_world"
+        android:text="Login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/activity_main_go"/>
+        android:id="@+id/activitymain_button_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="240dp"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:id="@+id/activitymain_button_signup"
+        android:layout_marginTop="290dp"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_width="@dimen/dialog_fixed_width_minor"
+        android:layout_height="wrap_content"
+        android:hint="Username"
+        android:textSize="25dp"
+        android:gravity="center"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/activitymain_edittext_username"/>
+
+    <EditText
+        android:layout_width="@dimen/dialog_fixed_width_minor"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="190dp"
+        android:gravity="center"
+        android:hint="Password"
+        android:textSize="25dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/activitymain_edittext_password"/>
 
 </RelativeLayout>
