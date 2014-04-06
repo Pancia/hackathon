@@ -8,21 +8,22 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class PlayActivity extends ActionBarActivity {
 
     private Button playfriends, fight;
     private TextView location;
-    private String home = "Oakes";
+    private String home = "Oakes"; //TODO IN FUTURE PING SERVER FOR YOUR HOME COLLEGE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play);
-        GPSTracker track = new GPSTracker(this);
+        final GPSTracker track = new GPSTracker(this);
         playfriends = (Button) findViewById(R.id.play_button_playfriends);
-        fight = (Button) findViewById(R.id.play_button_fight);
         location = (TextView) findViewById(R.id.play_textview_location);
+        fight = (Button) findViewById(R.id.play_button_fight);
         if (track.getCurrentCollege().toString().equals("none")){
             location.setText("You are currently not in any college");
         }
@@ -37,10 +38,14 @@ public class PlayActivity extends ActionBarActivity {
         }
 
         fight.setOnClickListener(new Button.OnClickListener() {
-            public void onClick(View v)
-            {
-                Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
-                PlayActivity.this.startActivity(myIntent);
+            public void onClick(View v) {
+                if (track.getCurrentCollege().toString().equals("none")) {
+                    Toast.makeText(getApplicationContext(), "Option currently unavailable, move to the nearest college to enable", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
+                    PlayActivity.this.startActivity(myIntent);
+                }
             }
         });
     }
