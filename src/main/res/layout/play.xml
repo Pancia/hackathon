@@ -2,6 +2,7 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@color/slug_blu"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -13,6 +14,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:textColor="@color/slug_yel"
             android:gravity="center"
             android:id="@+id/play_textview_location"
             android:textSize="30dp"/>
@@ -28,6 +30,7 @@
            <Button
                android:layout_width="match_parent"
                android:layout_height="match_parent"
+               android:background="@color/slug_yel"
                android:textSize="50dp"
                android:text="Fight"
                android:id="@+id/play_button_fight"/>
@@ -43,6 +46,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="Play Friends"
+                android:background="@color/slug_blu"
+                android:textColor="@color/slug_yel"
                 android:id="@+id/play_button_playfriends"
                 android:textSize="60dp"/>
 
