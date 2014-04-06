@@ -11,7 +11,12 @@ import com.google.android.gms.maps.model.*;
 import static android.location.Location.distanceBetween;
 
 
+
 public class MapActivity extends Activity implements GoogleMap.OnMapClickListener {
+
+    private static final float CIRC_WDTH = 5;
+    private static final int YELLOW = 0xFFDAA520;
+    private static final int BLUE = 0xFF436EEE;
 
     private TextView tappedCircle;
     @Override
@@ -37,6 +42,8 @@ public class MapActivity extends Activity implements GoogleMap.OnMapClickListene
         LatLng cowellLtLn = new LatLng(36.9965, -122.0548);
         LatLng brdwlkLtLn = new LatLng(36.960586, -122.020597);
         LatLng dwntwnLtLn = new LatLng(36.973067, -122.026563);
+        LatLng scihilLtLn = new LatLng(36.998241, -122.060959);
+        LatLng baskinLtLn = new LatLng(37.000563, -122.063051);
 
         ucsc_map.setMyLocationEnabled(true);
         ucsc_map.moveCamera(CameraUpdateFactory.newLatLngZoom(ucscruz, 14));
@@ -44,68 +51,108 @@ public class MapActivity extends Activity implements GoogleMap.OnMapClickListene
 
         CircleOptions oakesOptions = new CircleOptions()
                 .center(oakesLtLn)
-                .radius(GPSTracker.RAD_DIST);
+                .radius(GPSTracker.RAD_DIST)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle oakesCircle = ucsc_map.addCircle(oakesOptions);
 
         CircleOptions eightOptions = new CircleOptions()
                 .center(eightLtLn)
-                .radius(GPSTracker.RAD_DIST);
+                .radius(GPSTracker.RAD_DIST)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle eightCircle = ucsc_map.addCircle(eightOptions);
 
         CircleOptions porterOptions = new CircleOptions()
                 .center(porterLtLn)
-                .radius(GPSTracker.RAD_DIST);
+                .radius(GPSTracker.RAD_DIST)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle porterCircle = ucsc_map.addCircle(porterOptions);
 
         CircleOptions kresgeOptions = new CircleOptions()
                 .center(kresgeLtLn)
-                .radius(GPSTracker.RAD_DIST);
+                .radius(GPSTracker.RAD_DIST)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle kresgeCircle = ucsc_map.addCircle(kresgeOptions);
 
         CircleOptions nineOptions = new CircleOptions()
                 .center(nineLtLn)
-                .radius(GPSTracker.RAD_DIST);
+                .radius(GPSTracker.RAD_DIST)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle nineCircle = ucsc_map.addCircle(nineOptions);
 
         CircleOptions tenOptions = new CircleOptions()
                 .center(tenLtLn)
-                .radius(GPSTracker.RAD_DIST_SMALL);
+                .radius(GPSTracker.RAD_DIST_SMALL)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle tenCircle = ucsc_map.addCircle(tenOptions);
 
         CircleOptions crownOptions = new CircleOptions()
                 .center(crownLtLn)
-                .radius(GPSTracker.RAD_DIST_SMALL);
+                .radius(GPSTracker.RAD_DIST_SMALL)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle crownCircle = ucsc_map.addCircle(crownOptions);
 
         CircleOptions crownAptOptions = new CircleOptions()
                 .center(crownAptLtLn)
-                .radius(GPSTracker.RAD_DIST_MED);
+                .radius(GPSTracker.RAD_DIST_MED)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle crownAptCircle = ucsc_map.addCircle(crownAptOptions);
 
         CircleOptions merrillOptions = new CircleOptions()
                 .center(merrillLtLn)
-                .radius(GPSTracker.RAD_DIST_SMALL);
+                .radius(GPSTracker.RAD_DIST_SMALL)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle merrillCircle = ucsc_map.addCircle(merrillOptions);
 
         CircleOptions stevenOptions = new CircleOptions()
                 .center(stevenLtLn)
-                .radius(GPSTracker.RAD_DIST);
+                .radius(GPSTracker.RAD_DIST)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle stevenCircle = ucsc_map.addCircle(stevenOptions);
 
         CircleOptions cowellOptions = new CircleOptions()
                 .center(cowellLtLn)
-                .radius(GPSTracker.RAD_DIST);
+                .radius(GPSTracker.RAD_DIST)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(BLUE);
         Circle cowellCircle = ucsc_map.addCircle(cowellOptions);
 
         CircleOptions brdwlkOptions = new CircleOptions()
                 .center(brdwlkLtLn)
-                .radius(GPSTracker.RAD_DIST_LRG);
+                .radius(GPSTracker.RAD_DIST_LRG)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(YELLOW);
         Circle brdwlkCircle = ucsc_map.addCircle(brdwlkOptions);
 
         CircleOptions dwntwnOptions = new CircleOptions()
                 .center(dwntwnLtLn)
-                .radius(GPSTracker.RAD_DIST_LRG);
+                .radius(GPSTracker.RAD_DIST_LRG)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(YELLOW);
         Circle dwntwnCircle = ucsc_map.addCircle(dwntwnOptions);
+
+        CircleOptions scihilOptions = new CircleOptions()
+                .center(scihilLtLn)
+                .radius(GPSTracker.RAD_DIST)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(YELLOW);
+        Circle scihilCircle = ucsc_map.addCircle(scihilOptions);
+
+        CircleOptions baskinOptions = new CircleOptions()
+                .center(baskinLtLn)
+                .radius(GPSTracker.RAD_DIST)
+                .strokeWidth(CIRC_WDTH)
+                .strokeColor(YELLOW);
+        Circle baskinCircle = ucsc_map.addCircle(baskinOptions);
 
         ucsc_map.setOnMapClickListener(this);
 
@@ -130,49 +177,49 @@ public class MapActivity extends Activity implements GoogleMap.OnMapClickListene
 
         tryDist = distance(lat, lon, GPSTracker.OAKES_LAT, GPSTracker.OAKES_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST) {
-            tappedCollege="Oakes";
+            tappedCollege="Oakes College";
         }
         tryDist = distance(lat, lon, GPSTracker.EIGHT_LAT, GPSTracker.EIGHT_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            tappedCollege="Eight";
+            tappedCollege="College Eight";
         }
         tryDist = distance(lat, lon, GPSTracker.NINE_LAT, GPSTracker.NINE_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            tappedCollege="Nine";
+            tappedCollege="College Nine";
         }
         tryDist = distance(lat, lon, GPSTracker.TEN_LAT, GPSTracker.TEN_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            tappedCollege="Ten";
+            tappedCollege="College Ten";
         }
         tryDist = distance(lat, lon, GPSTracker.PORTER_LAT, GPSTracker.PORTER_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            tappedCollege="Porter";
+            tappedCollege="Porter College";
         }
         tryDist = distance(lat, lon, GPSTracker.KRESGE_LAT, GPSTracker.KRESGE_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            tappedCollege="Kresge";
+            tappedCollege="Kresge College";
         }
         tryDist = distance(lat, lon, GPSTracker.CROWN_LAT, GPSTracker.CROWN_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            tappedCollege="Crown";
+            tappedCollege="Crown College";
         }
         tryDist = distance(lat, lon, GPSTracker.CROWNAPT_LAT, GPSTracker.CROWNAPT_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST_MED){
-            tappedCollege="Crown";
+            tappedCollege="Crown College";
         }
         tryDist = distance(lat, lon, GPSTracker.MERRILL_LAT, GPSTracker.MERRILL_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            tappedCollege="Merrill";
+            tappedCollege="Merrill College";
         }
         tryDist = distance(lat, lon, GPSTracker.STEVEN_LAT, GPSTracker.STEVEN_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            tappedCollege="Stevenson";
+            tappedCollege="Stevenson College";
         }
         tryDist = distance(lat, lon, GPSTracker.COWELL_LAT, GPSTracker.COWELL_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            tappedCollege="Cowell";
+            tappedCollege="Cowell College";
         }
-
-        Toast.makeText(getApplicationContext(), "YOU CLICKED: " + tappedCollege, Toast.LENGTH_LONG).show();
+        if(!tappedCollege.contentEquals("NOTHING"))
+            Toast.makeText(getApplicationContext(), tappedCollege, Toast.LENGTH_LONG).show();
     }
 }
