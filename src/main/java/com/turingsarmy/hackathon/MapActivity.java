@@ -28,8 +28,13 @@ public class MapActivity extends Activity implements GoogleMap.OnMapClickListene
         LatLng eightLtLn = new LatLng(36.9917, -122.0645);
         LatLng porterLtLn = new LatLng(36.995, -122.065);
         LatLng kresgeLtLn = new LatLng(36.9977, -122.066);
-        LatLng nineLtLn = new LatLng(37.0955, -122.058);
-        LatLng tenLtLn = new LatLng(37.0135, -122.058);
+        LatLng nineLtLn = new LatLng(37.00251, -122.058);
+        LatLng tenLtLn = new LatLng(37.00019, -122.058);
+        LatLng crownLtLn = new LatLng(36.9997, -122.05513);
+        LatLng crownAptLtLn = new LatLng(37.0019, -122.0536);
+        LatLng merrillLtLn = new LatLng(36.9995, -122.05279);
+        LatLng stevenLtLn = new LatLng(36.997, -122.0514);
+        LatLng cowellLtLn = new LatLng(36.9965, -122.0548);
 
         ucsc_map.setMyLocationEnabled(true);
         ucsc_map.moveCamera(CameraUpdateFactory.newLatLngZoom(ucscruz, 14));
@@ -62,8 +67,33 @@ public class MapActivity extends Activity implements GoogleMap.OnMapClickListene
 
         CircleOptions tenOptions = new CircleOptions()
                 .center(tenLtLn)
-                .radius(GPSTracker.RAD_DIST);
+                .radius(GPSTracker.RAD_DIST_SMALL);
         Circle tenCircle = ucsc_map.addCircle(tenOptions);
+
+        CircleOptions crownOptions = new CircleOptions()
+                .center(crownLtLn)
+                .radius(GPSTracker.RAD_DIST_SMALL);
+        Circle crownCircle = ucsc_map.addCircle(crownOptions);
+
+        CircleOptions crownAptOptions = new CircleOptions()
+                .center(crownAptLtLn)
+                .radius(GPSTracker.RAD_DIST_MED);
+        Circle crownAptCircle = ucsc_map.addCircle(crownAptOptions);
+
+        CircleOptions merrillOptions = new CircleOptions()
+                .center(merrillLtLn)
+                .radius(GPSTracker.RAD_DIST_SMALL);
+        Circle merrillCircle = ucsc_map.addCircle(merrillOptions);
+
+        CircleOptions stevenOptions = new CircleOptions()
+                .center(stevenLtLn)
+                .radius(GPSTracker.RAD_DIST);
+        Circle stevenCircle = ucsc_map.addCircle(stevenOptions);
+
+        CircleOptions cowellOptions = new CircleOptions()
+                .center(cowellLtLn)
+                .radius(GPSTracker.RAD_DIST);
+        Circle cowellCircle = ucsc_map.addCircle(cowellOptions);
 
         ucsc_map.setOnMapClickListener(this);
 
@@ -84,57 +114,50 @@ public class MapActivity extends Activity implements GoogleMap.OnMapClickListene
         Double lat = p.latitude;
         Double lon = p.longitude;
         Double tryDist;
-        Double lowDist = Double.MAX_VALUE;
         String tappedCollege="NOTHING";
 
         tryDist = distance(lat, lon, GPSTracker.OAKES_LAT, GPSTracker.OAKES_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST) {
-            lowDist = tryDist;
             tappedCollege="Oakes";
         }
         tryDist = distance(lat, lon, GPSTracker.EIGHT_LAT, GPSTracker.EIGHT_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            lowDist = tryDist;
             tappedCollege="Eight";
         }
         tryDist = distance(lat, lon, GPSTracker.NINE_LAT, GPSTracker.NINE_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            lowDist = tryDist;
             tappedCollege="Nine";
         }
         tryDist = distance(lat, lon, GPSTracker.TEN_LAT, GPSTracker.TEN_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            lowDist = tryDist;
             tappedCollege="Ten";
         }
         tryDist = distance(lat, lon, GPSTracker.PORTER_LAT, GPSTracker.PORTER_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            lowDist = tryDist;
             tappedCollege="Porter";
         }
         tryDist = distance(lat, lon, GPSTracker.KRESGE_LAT, GPSTracker.KRESGE_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            lowDist = tryDist;
             tappedCollege="Kresge";
         }
         tryDist = distance(lat, lon, GPSTracker.CROWN_LAT, GPSTracker.CROWN_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            lowDist = tryDist;
+            tappedCollege="Crown";
+        }
+        tryDist = distance(lat, lon, GPSTracker.CROWNAPT_LAT, GPSTracker.CROWNAPT_LON, 'K');
+        if (tryDist < GPSTracker.RAD_DIST_MED){
             tappedCollege="Crown";
         }
         tryDist = distance(lat, lon, GPSTracker.MERRILL_LAT, GPSTracker.MERRILL_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            lowDist = tryDist;
             tappedCollege="Merrill";
         }
         tryDist = distance(lat, lon, GPSTracker.STEVEN_LAT, GPSTracker.STEVEN_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            lowDist = tryDist;
             tappedCollege="Stevenson";
         }
         tryDist = distance(lat, lon, GPSTracker.COWELL_LAT, GPSTracker.COWELL_LON, 'K');
         if (tryDist < GPSTracker.RAD_DIST){
-            lowDist = tryDist;
             tappedCollege="Cowell";
         }
 

@@ -19,6 +19,7 @@ public class GPSTracker extends Service implements LocationListener {
 
     private final Context mContext;
     public static final int RAD_DIST = 150;
+    public static final int RAD_DIST_MED = 120;
     public static final int RAD_DIST_SMALL = 100;
     public static final double OAKES_LAT = 36.9889;
     public static final double OAKES_LON = -122.06422;
@@ -28,12 +29,14 @@ public class GPSTracker extends Service implements LocationListener {
     public static final double PORTER_LON = -122.065;
     public static final double KRESGE_LAT = 36.9977;
     public static final double KRESGE_LON = -122.066;
-    public static final double NINE_LAT = 37.0955;
+    public static final double NINE_LAT = 37.00251;
     public static final double NINE_LON = -122.058;
-    public static final double TEN_LAT = 36.999;
+    public static final double TEN_LAT = 37.00019;
     public static final double TEN_LON = -122.0575;
     public static final double CROWN_LAT = 36.9997;
     public static final double CROWN_LON = -122.0555;
+    public static final double CROWNAPT_LAT = 37.0019;
+    public static final double CROWNAPT_LON = -122.0536;
     public static final double MERRILL_LAT = 36.9995;
     public static final double MERRILL_LON = -122.05267;
     public static final double STEVEN_LAT = 36.9975;
@@ -245,6 +248,11 @@ public class GPSTracker extends Service implements LocationListener {
             currentCollege="Kresge";
         }
         tryDist = distance(lat, lon, CROWN_LAT, CROWN_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
+            currentCollege="Crown";
+        }
+        tryDist = distance(lat, lon, CROWNAPT_LAT, CROWNAPT_LON, 'K');
         if (tryDist < RAD_DIST){
             lowDist = tryDist;
             currentCollege="Crown";
