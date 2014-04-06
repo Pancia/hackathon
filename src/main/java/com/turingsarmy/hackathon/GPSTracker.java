@@ -18,11 +18,11 @@ import static android.location.Location.distanceBetween;
 public class GPSTracker extends Service implements LocationListener {
 
     private final Context mContext;
-    private static final int RAD_DIST = 400;
-    private static final double OAKES_LAT = 36.9893;
-    private static final double OAKES_LON = -122.063;
-    private static final double EIGHT_LAT = 36.99143;
-    private static final double EIGHT_LON = -122.065;
+    public static final int RAD_DIST = 150;
+    private static final double OAKES_LAT = 36.989;
+    private static final double OAKES_LON = -122.0633;
+    private static final double EIGHT_LAT = 36.9914;
+    private static final double EIGHT_LON = -122.0645;
     private static final double PORTER_LAT = 36.9943;
     private static final double PORTER_LON = -122.065;
     private static final double KRESGE_LAT = 36.9977;
