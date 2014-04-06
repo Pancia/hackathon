@@ -1,16 +1,19 @@
 package com.turingsarmy.hackathon;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class PlayGameActivityBB extends ActionBarActivity {
+public class PlayGameActivityMM extends ActionBarActivity {
+
+    private int [] solution = {(int) Math.random()%3, (int) Math.random()%3, (int) Math.random()%3};
+    private int [] guess;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_bb);
+        setContentView(R.layout.activity_mm);
     }
 
     @Override
