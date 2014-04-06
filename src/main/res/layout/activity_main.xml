@@ -32,10 +32,12 @@
         android:gravity="center"
         android:layout_marginTop="150dp"
         android:layout_centerHorizontal="true"
+        android:singleLine="true"
         android:id="@+id/activitymain_edittext_username"/>
 
     <EditText
         android:layout_width="@dimen/dialog_fixed_width_minor"
+        android:singleLine="true"
         android:layout_height="wrap_content"
         android:layout_marginTop="190dp"
         android:gravity="center"
