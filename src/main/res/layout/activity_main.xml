@@ -27,7 +27,7 @@
     <EditText
         android:layout_width="@dimen/dialog_fixed_width_minor"
         android:layout_height="wrap_content"
-        android:text="Username"
+        android:hint="Username"
         android:textSize="25dp"
         android:gravity="center"
         android:layout_marginTop="150dp"
@@ -39,7 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="190dp"
         android:gravity="center"
-        android:text="Password"
+        android:hint="Password"
         android:textSize="25dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/activitymain_edittext_password"/>
