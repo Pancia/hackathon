@@ -76,6 +76,8 @@ public class PlayActivity extends ActionBarActivity {
                         String p2_username = "";
                         response = json.optString("response");
                         p2_username = json.optString("p2_username");
+                        createToast(response);
+                        createToast(p2_username);
 
                         //invariant, response or p2_username will be null
 
@@ -101,8 +103,14 @@ public class PlayActivity extends ActionBarActivity {
                 }).execute();
     }
 
-    private void createToast (String s){
-        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+    private void createToast (final String s){
+        PlayActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override

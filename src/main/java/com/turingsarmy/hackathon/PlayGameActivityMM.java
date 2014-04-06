@@ -386,7 +386,7 @@ public class PlayGameActivityMM extends ActionBarActivity {
         map.put("COLLEGE", home);
 
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(PlayGameActivityMM.this);
-        man.setAction(AsyncJsonRequestManager.Actions.UPDATERES);
+        man.setAction(AsyncJsonRequestManager.Actions.UPDATECOLLEGEINFO);
         man.setRequestBody(map);
         man.setCallback(new MyFutureTask() {
             @Override
@@ -397,7 +397,13 @@ public class PlayGameActivityMM extends ActionBarActivity {
 
     }
 
-    private void createToast (String s) {
-        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+    private void createToast (final String s){
+        PlayGameActivityMM.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 }

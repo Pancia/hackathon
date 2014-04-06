@@ -3,6 +3,7 @@ package com.turingsarmy.hackathon;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +26,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        MyShrdPrfs.init(this);
 
         login = (Button) findViewById(R.id.activitymain_button_login);
         signup = (Button) findViewById(R.id.activitymain_button_signup);
@@ -67,8 +69,14 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onRequestCompleted(JSONObject json) {
                 String response = json.optString("response");
+                String college = json.optString("college");
+
                 if (!username.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
                     if (response.equals("success")){
+                        MyShrdPrfs.saveObject("USERNAME", username.getText().toString());
+                        MyShrdPrfs.saveObject("PASSWORD", password.getText().toString());
+                        MyShrdPrfs.saveObject("COLLEGE", college);
+                        Log.w("College Check", college);
                         Intent myIntent = new Intent(MainActivity.this, MenuActivity.class);
                         MainActivity.this.startActivity(myIntent);
                     }

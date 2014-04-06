@@ -62,13 +62,13 @@ public class DefenseLobbyActivity extends ActionBarActivity {
         GPSTracker track = new GPSTracker(this);
             map.put("COLLEGE".toLowerCase(), track.getCurrentCollege());
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
-                man.setAction(AsyncJsonRequestManager.Actions.RETDEF);
+                man.setAction(AsyncJsonRequestManager.Actions.GETCOLLEGEINFO);
                 man.setRequestBody(map);
                 man.setCallback(new MyFutureTask() {
                     @Override
                     public void onRequestCompleted(JSONObject json) {
-                        //String defCount = json.getString("");//TODO CHANGE TO MAKE A JSONObject
-                        //numDefense.setText(defCount);
+                        String defender_count = json.optString("defender_count");//TODO CHANGE TO MAKE A JSONObject
+                        numDefense.setText(defender_count);
                     }
                 }).execute();
     }
@@ -77,8 +77,9 @@ public class DefenseLobbyActivity extends ActionBarActivity {
         HashMap<String, String> map = new HashMap<String, String>();
         GPSTracker track = new GPSTracker(this);
         map.put("COLLEGE".toLowerCase(), track.getCurrentCollege());
+        map.put("USERNAME".toLowerCase(), MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
-        man.setAction(AsyncJsonRequestManager.Actions.REMFROMDEF);
+        man.setAction(AsyncJsonRequestManager.Actions.UPDATECOLLEGEINFO);
         man.setRequestBody(map);
         man.setCallback(new MyFutureTask() {
             @Override

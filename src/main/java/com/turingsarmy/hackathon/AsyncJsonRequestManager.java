@@ -37,7 +37,7 @@ public class AsyncJsonRequestManager extends AsyncTask<String, String, String> {
     private String TAG;
 
     public enum Actions {
-        ADDUSER, UPDATEUSER, POSTGAMEMOVE, GETGAMESTATUS, JOINGAME, RETDEF, REMFROMDEF, VERIFYUSER, UPDATERES
+        ADDUSER, UPDATEUSER, POSTGAMEMOVE, GETGAMESTATUS, JOINGAME, RETDEF, GETCOLLEGEINFO, VERIFYUSER, UPDATECOLLEGEINFO
     }
 
     public enum Keys {
