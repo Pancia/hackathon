@@ -2,15 +2,14 @@ package com.turingsarmy.hackathon;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 
@@ -21,7 +20,6 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Resources res = getResources();
         setContentView(R.layout.activity_main);
 
         new AsyncJsonRequestManager(this)
@@ -41,7 +39,20 @@ public class MainActivity extends ActionBarActivity {
         login.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v)
             {
-                //perform action
+                if (!username.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
+                    if (true){ //TODO CHECK TO SEE IF INFO IS VALID
+                        Intent myIntent = new Intent(MainActivity.this, MenuActivity.class);
+                        MainActivity.this.startActivity(myIntent);
+                    }
+                    else {
+                        Toast.makeText(getApplicationContext(), "Username and password don't match, try again", Toast.LENGTH_SHORT).show();
+                    }
+                    //TODO CHECK TO SEE IF USERNAME AND PASSWORD MATCH
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
