@@ -1,5 +1,6 @@
 package com.turingsarmy.hackathon;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -11,7 +12,10 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 
 public class PlayGameActivityMM extends ActionBarActivity {
@@ -84,6 +88,8 @@ public class PlayGameActivityMM extends ActionBarActivity {
     private String redT = "Ω";
     private String grnT = "β";
     private String bluT = "Σ";
+
+    private String home = "Eight";
 
     private int currentRow = 0;
 
@@ -329,8 +335,6 @@ public class PlayGameActivityMM extends ActionBarActivity {
         solutionCopy[0] = solution[0];
         solutionCopy[1] = solution[1];
         solutionCopy[2] = solution[2];
-        Toast.makeText(getApplicationContext(), "Solution: " + solution[0] + " " + solution[1] + " " + solution[2], Toast.LENGTH_SHORT).show();
-        Toast.makeText(getApplicationContext(), "Guess: " + guess[0] + " " + guess[1] + " " + guess[2], Toast.LENGTH_SHORT).show();
 
         for(int i = 0; i < guessCopy.length; i++){
             if (solutionCopy[i] == guessCopy[i]){
@@ -357,7 +361,11 @@ public class PlayGameActivityMM extends ActionBarActivity {
 
         String out = "";
         if(numC == solution.length){
-            tv.setText("You won resources for your college");
+            Toast.makeText(getApplicationContext(), "Good job! You won resources for your college!", Toast.LENGTH_SHORT).show();
+            tryToUpdateCollegeRes();
+            Intent myIntent = new Intent(PlayGameActivityMM.this, MenuActivity.class);
+            PlayGameActivityMM.this.startActivity(myIntent);
+
         }
         else{
             while(numC>0){
@@ -371,5 +379,25 @@ public class PlayGameActivityMM extends ActionBarActivity {
 
             tv.setText(out);
         }
+    }
+
+    private void tryToUpdateCollegeRes() {
+        HashMap<String, String> map = new HashMap<String, String>();
+        map.put("COLLEGE", home);
+
+        AsyncJsonRequestManager man = new AsyncJsonRequestManager(PlayGameActivityMM.this);
+        man.setAction(AsyncJsonRequestManager.Actions.UPDATERES);
+        man.setRequestBody(map);
+        man.setCallback(new MyFutureTask() {
+            @Override
+            public void onRequestCompleted(JSONObject json) {
+                createToast("Resources successfully updated.");
+            }
+        }).execute();
+
+    }
+
+    private void createToast (String s) {
+        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
     }
 }
