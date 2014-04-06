@@ -18,27 +18,28 @@ import static android.location.Location.distanceBetween;
 public class GPSTracker extends Service implements LocationListener {
 
     private final Context mContext;
-    private static final int RAD_DIST = 800;
-    private static final double OAKES_LAT = 36.9893;
-    private static final double OAKES_LON = -122.063;
-    private static final double EIGHT_LAT = 36.99143;
-    private static final double EIGHT_LON = -122.065;
-    private static final double PORTER_LAT = 36.9943;
-    private static final double PORTER_LON = -122.065;
-    private static final double KRESGE_LAT = 36.9977;
-    private static final double KRESGE_LON = -122.066;
-    private static final double NINE_LAT = 37.0;
-    private static final double NINE_LON = -122.0594;
-    private static final double TEN_LAT = 37.0;
-    private static final double TEN_LON = -122.0588;
-    private static final double CROWN_LAT = 36.9997;
-    private static final double CROWN_LON = -122.0555;
-    private static final double MERRILL_LAT = 36.9995;
-    private static final double MERRILL_LON = -122.05267;
-    private static final double STEVEN_LAT = 36.9975;
-    private static final double STEVEN_LON = -122.0514;
-    private static final double COWELL_LAT = 36.9965;
-    private static final double COWELL_LON = -122.0548;
+    public static final int RAD_DIST = 150;
+    public static final int RAD_DIST_SMALL = 100;
+    public static final double OAKES_LAT = 36.9889;
+    public static final double OAKES_LON = -122.06422;
+    public static final double EIGHT_LAT = 36.9917;
+    public static final double EIGHT_LON = -122.0645;
+    public static final double PORTER_LAT = 36.995;
+    public static final double PORTER_LON = -122.065;
+    public static final double KRESGE_LAT = 36.9977;
+    public static final double KRESGE_LON = -122.066;
+    public static final double NINE_LAT = 37.0955;
+    public static final double NINE_LON = -122.058;
+    public static final double TEN_LAT = 36.999;
+    public static final double TEN_LON = -122.0575;
+    public static final double CROWN_LAT = 36.9997;
+    public static final double CROWN_LON = -122.0555;
+    public static final double MERRILL_LAT = 36.9995;
+    public static final double MERRILL_LON = -122.05267;
+    public static final double STEVEN_LAT = 36.9975;
+    public static final double STEVEN_LON = -122.0514;
+    public static final double COWELL_LAT = 36.9965;
+    public static final double COWELL_LON = -122.0548;
     private String currentCollege = "none";
 
     // flag for GPS status
@@ -209,27 +210,62 @@ public class GPSTracker extends Service implements LocationListener {
 
     public void determineCollege()
     {
-        if (distance(getLatitude(), getLongitude(), OAKES_LAT, OAKES_LON, 'K') < RAD_DIST) {
+        double tryDist, lowDist=Double.MAX_VALUE;
+        double lat = getLatitude();
+        double lon = getLongitude();
+
+        tryDist = distance(lat, lon, OAKES_LAT, OAKES_LON, 'K');
+        if (tryDist < RAD_DIST) {
+            lowDist = tryDist;
             currentCollege="Oakes";
-        } else if (distance(getLatitude(), getLongitude(), EIGHT_LAT, EIGHT_LON, 'K') < RAD_DIST){
+        }
+        tryDist = distance(lat, lon, EIGHT_LAT, EIGHT_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
             currentCollege="Eight";
-        } else if (distance(getLatitude(), getLongitude(), NINE_LAT, NINE_LON, 'K') < RAD_DIST){
+        }
+        tryDist = distance(lat, lon, NINE_LAT, NINE_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
             currentCollege="Nine";
-        } else if (distance(getLatitude(), getLongitude(), TEN_LAT, TEN_LON, 'K') < RAD_DIST){
+        }
+        tryDist = distance(lat, lon, TEN_LAT, TEN_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
             currentCollege="Ten";
-        } else if (distance(getLatitude(), getLongitude(), PORTER_LAT, PORTER_LON, 'K') < RAD_DIST){
+        }
+        tryDist = distance(lat, lon, PORTER_LAT, PORTER_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
             currentCollege="Porter";
-        } else if (distance(getLatitude(), getLongitude(), KRESGE_LAT, KRESGE_LON, 'K') < RAD_DIST){
+        }
+        tryDist = distance(lat, lon, KRESGE_LAT, KRESGE_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
             currentCollege="Kresge";
-        } else if (distance(getLatitude(), getLongitude(), CROWN_LAT, CROWN_LON, 'K') < RAD_DIST){
+        }
+        tryDist = distance(lat, lon, CROWN_LAT, CROWN_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
             currentCollege="Crown";
-        } else if (distance(getLatitude(), getLongitude(), MERRILL_LAT, MERRILL_LON, 'K') < RAD_DIST){
+        }
+        tryDist = distance(lat, lon, MERRILL_LAT, MERRILL_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
             currentCollege="Merrill";
-        } else if (distance(getLatitude(), getLongitude(), STEVEN_LAT, STEVEN_LON, 'K') < RAD_DIST){
+        }
+        tryDist = distance(lat, lon, STEVEN_LAT, STEVEN_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
             currentCollege="Stevenson";
-        } else if (distance(getLatitude(), getLongitude(), COWELL_LAT, COWELL_LON, 'K') < RAD_DIST){
+        }
+        tryDist = distance(lat, lon, COWELL_LAT, COWELL_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
             currentCollege="Cowell";
         }
+        if (lowDist > RAD_DIST)
+            currentCollege = "none";
     }
 
     @Override

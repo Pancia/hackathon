@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.google.gson.JsonObject;
-
 public class MainActivity extends ActionBarActivity {
 
     private final static String TAG = MainActivity.class.getSimpleName();
@@ -21,15 +19,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        new AsyncJsonRequestManager(this)
-                .setCallback(new MyFutureTask() {
-                    @Override
-                    public void onRequestCompleted(JsonObject json) {
-                        Log.i(TAG, json.toString());
-                    }
-                })
-                .execute();
 
         final Button login = (Button) findViewById(R.id.activitymain_button_login);
         final Button signup = (Button) findViewById(R.id.activitymain_button_signup);
