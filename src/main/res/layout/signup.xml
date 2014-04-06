@@ -6,7 +6,7 @@
     <EditText
         android:layout_width="@dimen/dialog_fixed_width_minor"
         android:layout_height="wrap_content"
-        android:text="Username"
+        android:hint="Username"
         android:gravity="center"
         android:textSize="25dp"
         android:id="@+id/signup_edittext_username"
@@ -16,7 +16,7 @@
     <EditText
         android:layout_width="@dimen/dialog_fixed_width_minor"
         android:layout_height="wrap_content"
-        android:text="Password"
+        android:hint="Password"
         android:gravity="center"
         android:id="@+id/signup_edittext_password"
         android:textSize="25dp"
@@ -26,7 +26,7 @@
     <EditText
         android:layout_width="@dimen/dialog_fixed_width_minor"
         android:layout_height="wrap_content"
-        android:text="Email"
+        android:hint="Email"
         android:gravity="center"
         android:id="@+id/signup_edittext_email"
         android:textSize="25dp"
@@ -47,6 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Submit"
+        android:textSize="25dp"
         android:id="@+id/signup_button_submit"
         android:layout_below="@+id/signup_spinner_college"
         android:layout_centerHorizontal="true" />
