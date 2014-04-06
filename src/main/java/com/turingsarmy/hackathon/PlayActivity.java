@@ -1,9 +1,11 @@
 package com.turingsarmy.hackathon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -33,6 +35,14 @@ public class PlayActivity extends ActionBarActivity {
                 fight.setText("Fight against " + track.getCurrentCollege().toString());
             }
         }
+
+        fight.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v)
+            {
+                Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
+                PlayActivity.this.startActivity(myIntent);
+            }
+        });
     }
 
     @Override
