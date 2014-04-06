@@ -19,12 +19,13 @@ public class PlayActivity extends ActionBarActivity {
     private Button playfriends, fight;
     private String playerType;
     private TextView location;
-    private String home = "Oakes"; //TODO IN FUTURE PING SERVER FOR YOUR HOME COLLEGE
+    private String home; //TODO IN FUTURE PING SERVER FOR YOUR HOME COLLEGE
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play);
+        home = MyShrdPrfs.myShrdPrfs.getString("COLLEGE", "");
         final GPSTracker track = new GPSTracker(this);
         playfriends = (Button) findViewById(R.id.play_button_playfriends);
         location = (TextView) findViewById(R.id.play_textview_location);
@@ -62,8 +63,8 @@ public class PlayActivity extends ActionBarActivity {
 
     private void tryToJoinGame() {
         HashMap<String, String> map = new HashMap<String, String>();
-        map.put("username", "pancia");
-        map.put("gamemode", "defender");
+        map.put("username", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
+        map.put("gamemode", playerType);
         final GPSTracker track = new GPSTracker(this);
 
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(PlayActivity.this);  //TODO do logic for which game to play
@@ -72,10 +73,8 @@ public class PlayActivity extends ActionBarActivity {
                 man.setCallback(new MyFutureTask() {
                     @Override
                     public void onRequestCompleted(JSONObject json) {
-                        String response = "";
-                        String p2_username = "";
-                        response = json.optString("response");
-                        p2_username = json.optString("p2_username");
+                        String response = json.optString("response");
+                        String p2_username = json.optString("p2_username");
                         createToast(response);
                         createToast(p2_username);
 
@@ -86,13 +85,20 @@ public class PlayActivity extends ActionBarActivity {
                         } else if (track.getCurrentCollege().equals(home) && response.equals("added to game")){
                             Intent myIntent = new Intent(PlayActivity.this, DefenseLobbyActivity.class);
                             PlayActivity.this.startActivity(myIntent);
-                        } else if (response.equals("game already exists")){
+                        }
+                        else if (!track.getCurrentCollege().equals(home) && p2_username != ""){
+                            Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
+                            PlayActivity.this.startActivity(myIntent);
+                        }
+                        else if (response.equals("game already exists")){
                             createToast("You are currently in a game. Please wait until your current game ends before starting a new one.");
-                        } else if (response.equals("UserDatabase is null")){
+                        } else if (response.equals("UserDatabase is null!")){
                             createToast("Your data base is empty.");
+                            createToast("base null");
                             Intent myIntent = new Intent(PlayActivity.this, MainActivity.class);
                             PlayActivity.this.startActivity(myIntent);
                         } else if (p2_username.equals("pve")){
+                            createToast("pve");
                             Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
                             PlayActivity.this.startActivity(myIntent);
                         } else if (!p2_username.equals("")){

@@ -84,6 +84,7 @@ public class DefenseLobbyActivity extends ActionBarActivity {
         man.setCallback(new MyFutureTask() {
             @Override
             public void onRequestCompleted(JSONObject json) {
+
                 Intent myIntent = new Intent(DefenseLobbyActivity.this, PlayActivity.class);
                 DefenseLobbyActivity.this.startActivity(myIntent);
             }
@@ -91,4 +92,31 @@ public class DefenseLobbyActivity extends ActionBarActivity {
         }).execute();
     }
 
+    private void pingServer() {
+        HashMap<String, String> map = new HashMap<String, String>();
+        GPSTracker track = new GPSTracker(this);
+        map.put("COLLEGE".toLowerCase(), track.getCurrentCollege());
+        map.put("USERNAME".toLowerCase(), MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
+        AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
+        man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
+        man.setRequestBody(map);
+        man.setCallback(new MyFutureTask() {
+            @Override
+            public void onRequestCompleted(JSONObject json) {
+                String response = json.optString("response");
+                String p2_username = json.optString("p2_username");
+                if(response.equals("try again")){
+                    pingServer();
+                }
+                else if (p2_username != ""){
+                    Intent myIntent = new Intent(DefenseLobbyActivity.this, PlayGameActivityRPS.class);
+                    myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
+                    myIntent.putExtra("p2name", p2_username);
+                    DefenseLobbyActivity.this.startActivity(myIntent);
+                }
+
+            }
+
+        }).execute();
+    }
 }

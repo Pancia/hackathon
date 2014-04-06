@@ -1,9 +1,8 @@
 package com.turingsarmy.hackathon;
 
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,10 +41,10 @@ public class PlayGameActivityRPS extends ActionBarActivity {
         tvp2Choice.setText(p2sel);
 
         //Display Names
-        final String p1Name = "Jeff";
+        final String p1Name = getIntent().getStringExtra("p1name");
         TextView tvUsername = (TextView) findViewById(R.id.activity_rps_p1);
         tvUsername.setText(p1Name);
-        final String p2Name = "Sally";
+        final String p2Name = getIntent().getStringExtra("p2name");
         TextView tvEnemyName = (TextView) findViewById(R.id.activity_rps_p2);
         tvEnemyName.setText(p2Name);
 
