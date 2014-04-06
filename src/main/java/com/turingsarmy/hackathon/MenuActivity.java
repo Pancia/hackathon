@@ -1,16 +1,34 @@
 package com.turingsarmy.hackathon;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class MenuActivity extends ActionBarActivity {
 
+    private Button challenges, stats, leaderboard, map, play;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.menu);
+
+        challenges = (Button) findViewById(R.id.menu_button_challenges);
+        stats = (Button) findViewById(R.id.menu_button_stats);
+        leaderboard =(Button)findViewById(R.id.menu_button_leaderboard);
+        map = (Button)findViewById(R.id.menu_button_map);
+        play = (Button) findViewById(R.id.menu_button_play);
+
+        play.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v)
+            {
+                Intent myIntent = new Intent(MenuActivity.this, PlayActivity.class);
+                MenuActivity.this.startActivity(myIntent);
+            }
+        });
     }
 
     @Override

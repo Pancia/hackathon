@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.util.Log;
-import android.widget.Toast;
 
 import static android.location.Location.distanceBetween;
 
@@ -20,7 +19,7 @@ public class GPSTracker extends Service implements LocationListener {
 
     private final Context mContext;
     private static final int RAD_DIST = 800;
-    private static final double OAKES_LAT = 36.99405;
+    private static final double OAKES_LAT = 36.9893;
     private static final double OAKES_LON = -122.063;
     private static final double EIGHT_LAT = 36.99143;
     private static final double EIGHT_LON = -122.065;
@@ -211,25 +210,25 @@ public class GPSTracker extends Service implements LocationListener {
     public void determineCollege()
     {
         if (distance(getLatitude(), getLongitude(), OAKES_LAT, OAKES_LON, 'K') < RAD_DIST) {
-            currentCollege="oakes";
+            currentCollege="Oakes";
         } else if (distance(getLatitude(), getLongitude(), EIGHT_LAT, EIGHT_LON, 'K') < RAD_DIST){
-            currentCollege="eight";
+            currentCollege="Eight";
         } else if (distance(getLatitude(), getLongitude(), NINE_LAT, NINE_LON, 'K') < RAD_DIST){
-            currentCollege="nine";
+            currentCollege="Nine";
         } else if (distance(getLatitude(), getLongitude(), TEN_LAT, TEN_LON, 'K') < RAD_DIST){
-            currentCollege="ten";
+            currentCollege="Ten";
         } else if (distance(getLatitude(), getLongitude(), PORTER_LAT, PORTER_LON, 'K') < RAD_DIST){
-            currentCollege="porter";
+            currentCollege="Porter";
         } else if (distance(getLatitude(), getLongitude(), KRESGE_LAT, KRESGE_LON, 'K') < RAD_DIST){
-            currentCollege="kresge";
+            currentCollege="Kresge";
         } else if (distance(getLatitude(), getLongitude(), CROWN_LAT, CROWN_LON, 'K') < RAD_DIST){
-            currentCollege="crown";
+            currentCollege="Crown";
         } else if (distance(getLatitude(), getLongitude(), MERRILL_LAT, MERRILL_LON, 'K') < RAD_DIST){
-            currentCollege="merrill";
+            currentCollege="Merrill";
         } else if (distance(getLatitude(), getLongitude(), STEVEN_LAT, STEVEN_LON, 'K') < RAD_DIST){
-            currentCollege="stevenson";
+            currentCollege="Stevenson";
         } else if (distance(getLatitude(), getLongitude(), COWELL_LAT, COWELL_LON, 'K') < RAD_DIST){
-            currentCollege="cowell";
+            currentCollege="Cowell";
         }
     }
 
@@ -254,7 +253,6 @@ public class GPSTracker extends Service implements LocationListener {
     private double distance(double lat1, double lon1, double lat2, double lon2, char unit) {
         float[] distance = new float[10];
         distanceBetween(lat1, lon1, lat2, lon2, distance);
-        Toast.makeText(mContext, "DIST: " + String.valueOf(distance[0]), Toast.LENGTH_LONG).show();
         return (distance[0]);
     }
 }

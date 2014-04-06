@@ -9,6 +9,7 @@
         android:hint="Username"
         android:gravity="center"
         android:textSize="25dp"
+        android:singleLine="true"
         android:id="@+id/signup_edittext_username"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="130dp" />
@@ -20,6 +21,7 @@
         android:gravity="center"
         android:id="@+id/signup_edittext_password"
         android:textSize="25dp"
+        android:singleLine="true"
         android:layout_below="@+id/signup_edittext_username"
         android:layout_centerHorizontal="true" />
 
@@ -27,6 +29,7 @@
         android:layout_width="@dimen/dialog_fixed_width_minor"
         android:layout_height="wrap_content"
         android:hint="UCSC Email"
+        android:singleLine="true"
         android:gravity="center"
         android:id="@+id/signup_edittext_email"
         android:textSize="25dp"
