@@ -1,8 +1,8 @@
 package com.turingsarmy.hackathon;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,7 +15,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
     private final static String TAG = MainActivity.class.getSimpleName();
     private Button login, signup;
@@ -63,7 +63,7 @@ public class MainActivity extends ActionBarActivity {
         map.put("USERNAME".toLowerCase(), username.getText().toString());
         map.put("PASSWORD".toLowerCase(), password.getText().toString());
 
-        man.setAction(AsyncJsonRequestManager.Actions.VERIFYUSER); //TODO what activity do you use to verify the username password combo?
+        man.setAction(AsyncJsonRequestManager.Actions.VERIFYUSER);
         man.setRequestBody(map);
         man.setCallback(new MyFutureTask() {
             @Override

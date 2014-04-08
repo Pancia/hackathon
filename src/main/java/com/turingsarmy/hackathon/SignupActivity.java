@@ -1,9 +1,9 @@
 package com.turingsarmy.hackathon;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +18,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class SignupActivity extends ActionBarActivity {
+public class SignupActivity extends Activity {
 
     private static final String TAG = SignupActivity.class.getSimpleName();
     private Spinner collegeSpinner;
@@ -47,7 +47,6 @@ public class SignupActivity extends ActionBarActivity {
                     if (userEmail.contains("@ucsc.edu")){
 
                         tryToCreateUser();
-
 
                         Intent myIntent = new Intent(SignupActivity.this, MenuActivity.class);
                         SignupActivity.this.startActivity(myIntent);

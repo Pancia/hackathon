@@ -1,8 +1,8 @@
 package com.turingsarmy.hackathon;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +13,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 
-public class DefenseLobbyActivity extends ActionBarActivity {
+public class DefenseLobbyActivity extends Activity {
 
     private TextView numDefense, prompt;
     private Button exit;
@@ -67,7 +67,7 @@ public class DefenseLobbyActivity extends ActionBarActivity {
                 man.setCallback(new MyFutureTask() {
                     @Override
                     public void onRequestCompleted(JSONObject json) {
-                        String defender_count = json.optString("defender_count");//TODO CHANGE TO MAKE A JSONObject
+                        String defender_count = json.optString("defender_count");
                         numDefense.setText(defender_count);
                     }
                 }).execute();
