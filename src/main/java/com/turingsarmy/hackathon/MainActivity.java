@@ -92,11 +92,11 @@ public class MainActivity extends Activity {
         }).execute();
     }
 
-    private void createToast (final String s){
+    private void createToast (final String string){
         MainActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, string, Toast.LENGTH_SHORT).show();
 
             }
         });
