@@ -19,44 +19,41 @@ public class PlayActivity extends Activity {
     private Button playfriends, fight;
     private String playerType;
     private TextView location;
-    private String home; //TODO IN FUTURE PING SERVER FOR YOUR HOME COLLEGE
+    private String home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play);
-        home = MyShrdPrfs.myShrdPrfs.getString("COLLEGE", "");
+        home = MyShrdPrfs.myShrdPrfs.getString("COLLEGE", "");//TODO NPE HERE?
         final GPSTracker track = new GPSTracker(this);
         playfriends = (Button) findViewById(R.id.play_button_playfriends);
         location = (TextView) findViewById(R.id.play_textview_location);
         fight = (Button) findViewById(R.id.play_button_fight);
-        if (track.getCurrentCollege().toString().equals("none")){
+        if (track.getCurrentCollege().equals("none")){
             location.setText("You are currently not in any college");
         }
         else {
-            location.setText("You are currently in " + track.getCurrentCollege().toString());
-            if (track.getCurrentCollege().toString().equals(home)){
-                fight.setText("Defend " + track.getCurrentCollege().toString());
+            location.setText("You are currently in " + track.getCurrentCollege());
+            if (track.getCurrentCollege().equals(home)){
+                fight.setText("Defend " + track.getCurrentCollege());
                 playerType = "defender";
             }
             else {
-                fight.setText("Fight against " + track.getCurrentCollege().toString());
+                fight.setText("Fight against " + track.getCurrentCollege());
                 playerType = "attacker";
             }
         }
 
         fight.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                if (track.getCurrentCollege().toString().equals("none")) {
-                    Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
-                    PlayActivity.this.startActivity(myIntent);
-                    Toast.makeText(getApplicationContext(), "Option currently unavailable, move to the nearest college to enable", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
-                    PlayActivity.this.startActivity(myIntent);
+//                if (track.getCurrentCollege().equals("none")) {
+//                    Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
+//                    PlayActivity.this.startActivity(myIntent);
+//                    Toast.makeText(PlayActivity.this, "Option currently unavailable, move to the nearest college to enable", Toast.LENGTH_SHORT).show();
+//                } else {
                     tryToJoinGame();
-                }
+                //}
             }
         });
     }
@@ -67,7 +64,7 @@ public class PlayActivity extends Activity {
         map.put("gamemode", playerType);
         final GPSTracker track = new GPSTracker(this);
 
-        AsyncJsonRequestManager man = new AsyncJsonRequestManager(PlayActivity.this);  //TODO do logic for which game to play
+        AsyncJsonRequestManager man = new AsyncJsonRequestManager(PlayActivity.this);
                 man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
                 man.setRequestBody(map);
                 man.setCallback(new MyFutureTask() {
@@ -81,16 +78,22 @@ public class PlayActivity extends Activity {
                         //invariant, response or p2_username will be null
 
                         if (response.equals("try again")) {
-                            tryToJoinGame();
-                        } else if (track.getCurrentCollege().equals(home) && response.equals("added to game")){
+                            //tryToJoinGame();
+                            createToast("try again");
+                        }
+                        /**Defender*/
+                        else if (track.getCurrentCollege().equals(home) && response.equals("added to game")){
                             Intent myIntent = new Intent(PlayActivity.this, DefenseLobbyActivity.class);
                             PlayActivity.this.startActivity(myIntent);
                         }
-                        else if (!track.getCurrentCollege().equals(home) && p2_username != ""){
+                        /**Attacker*/
+                        else if (!track.getCurrentCollege().equals(home) && !p2_username.equals("")){
                             Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
+                            myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
+                            myIntent.putExtra("p2name", p2_username);
+                            myIntent.putExtra("gamemode", "attacker");
                             PlayActivity.this.startActivity(myIntent);
-                        }
-                        else if (response.equals("game already exists")){
+                        } else if (response.equals("game already exists")){
                             createToast("You are currently in a game. Please wait until your current game ends before starting a new one.");
                         } else if (response.equals("UserDatabase is null!")){
                             createToast("Your data base is empty.");
@@ -101,19 +104,16 @@ public class PlayActivity extends Activity {
                             createToast("pve");
                             Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
                             PlayActivity.this.startActivity(myIntent);
-                        } else if (!p2_username.equals("")){
-                            Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
-                            PlayActivity.this.startActivity(myIntent);
                         }
                     }
                 }).execute();
     }
 
-    private void createToast (final String s){
+    private void createToast (final String string){
         PlayActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PlayActivity.this, string, Toast.LENGTH_SHORT).show();
 
             }
         });

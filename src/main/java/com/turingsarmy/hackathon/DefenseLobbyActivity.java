@@ -3,6 +3,7 @@ package com.turingsarmy.hackathon;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,13 +16,15 @@ import java.util.HashMap;
 
 public class DefenseLobbyActivity extends Activity {
 
+    private static final String TAG = DefenseLobbyActivity.class.getSimpleName();
     private TextView numDefense, prompt;
     private Button exit;
+    private boolean ping = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.signup);
+        setContentView(R.layout.defense_lobby);
 
         numDefense = (TextView) findViewById(R.id.defenselobby_textview_numdefense);
         prompt = (TextView) findViewById(R.id.defenselobby_textview_prompt);
@@ -35,7 +38,13 @@ public class DefenseLobbyActivity extends Activity {
                 tryToLeaveLobby();
             }
         });
-       }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        pingServer();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -68,12 +77,23 @@ public class DefenseLobbyActivity extends Activity {
                     @Override
                     public void onRequestCompleted(JSONObject json) {
                         String defender_count = json.optString("defender_count");
-                        numDefense.setText(defender_count);
+                        updateTextView(numDefense, defender_count);
                     }
                 }).execute();
     }
 
+    private void updateTextView(final TextView tv, final String string) {
+        DefenseLobbyActivity.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                tv.setText(string);
+
+            }
+        });
+    }
+
     private void tryToLeaveLobby() {
+        ping = false;
         HashMap<String, String> map = new HashMap<String, String>();
         GPSTracker track = new GPSTracker(this);
         map.put("COLLEGE".toLowerCase(), track.getCurrentCollege());
@@ -84,7 +104,6 @@ public class DefenseLobbyActivity extends Activity {
         man.setCallback(new MyFutureTask() {
             @Override
             public void onRequestCompleted(JSONObject json) {
-
                 Intent myIntent = new Intent(DefenseLobbyActivity.this, PlayActivity.class);
                 DefenseLobbyActivity.this.startActivity(myIntent);
             }
@@ -93,9 +112,10 @@ public class DefenseLobbyActivity extends Activity {
     }
 
     private void pingServer() {
+        Log.w(TAG, "defenselobby pingServer()");
         HashMap<String, String> map = new HashMap<String, String>();
         GPSTracker track = new GPSTracker(this);
-        map.put("COLLEGE".toLowerCase(), track.getCurrentCollege());
+        map.put("GAMEMODE".toLowerCase(), "defender");
         map.put("USERNAME".toLowerCase(), MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
         man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
@@ -106,15 +126,22 @@ public class DefenseLobbyActivity extends Activity {
                 String response = json.optString("response");
                 String p2_username = json.optString("p2_username");
                 if(response.equals("try again")){
-                    pingServer();
+                    if (ping) {
+                        try {
+                            Thread.sleep(1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        pingServer();
+                    }
                 }
-                else if (p2_username != ""){
+                else if (!p2_username.equals("")){
                     Intent myIntent = new Intent(DefenseLobbyActivity.this, PlayGameActivityRPS.class);
                     myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
                     myIntent.putExtra("p2name", p2_username);
+                    myIntent.putExtra("gamemode", "defender");
                     DefenseLobbyActivity.this.startActivity(myIntent);
                 }
-
             }
 
         }).execute();
