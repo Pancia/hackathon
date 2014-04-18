@@ -98,9 +98,8 @@ public class AsyncJsonRequestManager extends AsyncTask<String, String, String> {
         }
         Log.d(TAG, params.toString());
 
-        String response =
-                new JsonHttpRequester(baseUrl + endUrl, params)
-                        .makeJsonHttpRequest(JsonHttpRequester.POST);
+        String response = new JsonHttpRequester(baseUrl + endUrl, params)
+                               .makeJsonHttpRequest(JsonHttpRequester.POST);
         Log.i(TAG, response);
         JSONObject jsonObject = null;
         try {

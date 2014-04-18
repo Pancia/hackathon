@@ -54,7 +54,6 @@ public class GPSTracker extends Service implements LocationListener {
     public static final double BASKIN_LON = -122.063051;
     private String currentCollege = "none";
 
-
     // flag for GPS status
     boolean isGPSEnabled = false;
 
@@ -78,7 +77,7 @@ public class GPSTracker extends Service implements LocationListener {
 
     public GPSTracker(Context context) {
         this.mContext = context;
-        getLocation();
+        //getLocation();
     }
 
     public Location getLocation() {
@@ -215,14 +214,13 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.show();
     }
 
-    public String getCurrentCollege()
-    {
+    public String getCurrentCollege() {
         determineCollege();
-        return currentCollege;
+        //return currentCollege;
+        return "Oakes";
     }
 
-    private void determineCollege()
-    {
+    private void determineCollege() {
         double tryDist, lowDist=Double.MAX_VALUE;
         double lat = getLatitude();
         double lon = getLongitude();
@@ -292,13 +290,17 @@ public class GPSTracker extends Service implements LocationListener {
             lowDist = tryDist;
             currentCollege="Downtown";
         }
+        tryDist = distance(lat, lon, DWNTWN_LAT, DWNTWN_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
+            currentCollege="Downtown";
+        }
         if (lowDist > RAD_DIST)
             currentCollege = "none";
     }
 
     @Override
-    public void onLocationChanged(Location location) {
-    }
+    public void onLocationChanged(Location location) {}
 
     @Override
     public void onProviderDisabled(String provider) {}
@@ -310,9 +312,7 @@ public class GPSTracker extends Service implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {}
 
     @Override
-    public IBinder onBind(Intent arg0) {
-        return null;
-        }
+    public IBinder onBind(Intent arg0) {return null;}
 
     private double distance(double lat1, double lon1, double lat2, double lon2, char unit) {
         float[] distance = new float[10];
