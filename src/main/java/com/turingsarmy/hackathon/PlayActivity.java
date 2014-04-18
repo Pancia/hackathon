@@ -47,7 +47,7 @@ public class PlayActivity extends Activity {
 
         fight.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                if (track.getCurrentCollege().toString().equals("none")) {
+                if (track.getCurrentCollege().equals("none")) {
                     Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
                     PlayActivity.this.startActivity(myIntent);
                     Toast.makeText(getApplicationContext(), "Option currently unavailable, move to the nearest college to enable", Toast.LENGTH_SHORT).show();
@@ -86,7 +86,7 @@ public class PlayActivity extends Activity {
                             Intent myIntent = new Intent(PlayActivity.this, DefenseLobbyActivity.class);
                             PlayActivity.this.startActivity(myIntent);
                         }
-                        else if (!track.getCurrentCollege().equals(home) && p2_username != ""){
+                        else if (!track.getCurrentCollege().equals(home) && !p2_username.equals("")){
                             Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
                             PlayActivity.this.startActivity(myIntent);
                         }

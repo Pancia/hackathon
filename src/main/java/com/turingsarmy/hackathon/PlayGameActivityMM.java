@@ -81,7 +81,7 @@ public class PlayGameActivityMM extends ActionBarActivity {
     private String blu = "#1100ff";
     private String grn = "#1dc319";
 
-    private String rTxt = "#ff2d00";
+    private String rTxt = "#ffff8c6b";
     private String bTxt = "#0081ff";
     private String gTxt = "#36ff00";
 
@@ -195,7 +195,7 @@ public class PlayGameActivityMM extends ActionBarActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
 
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.activity_mm, menu);
         return true;
     }
 
@@ -205,7 +205,10 @@ public class PlayGameActivityMM extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
+
+        if (id == R.id.activitymm_item__howtoplay) {
+            createLongToast("Click squares to change the color. Try to guess the secret code. The output is in no specific order.");
+            createLongToast("C - correct color and position \n W - correct color, wrong position\n Nothing - both color and position is wrong.");
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -402,6 +405,16 @@ public class PlayGameActivityMM extends ActionBarActivity {
             @Override
             public void run() {
                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+
+            }
+        });
+    }
+
+    private void createLongToast (final String s){
+        PlayGameActivityMM.this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
 
             }
         });
