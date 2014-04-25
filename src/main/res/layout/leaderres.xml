@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Top Colleges"
+        android:textSize="35dp"
+        android:id="@+id/top_col"
+        android:background="@color/slug_yel"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tOakes:\t\t\t\t\t\t\t\t\t\t\t\t\t\t1426res"
+        android:textColor="@color/slug_yel"
+        android:textSize="25dp"
+        android:id="@+id/col1"
+        android:background="@color/slug_blu"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tEight:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t1125res"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tPorter:\t\t\t\t\t\t\t\t\t\t\t\t\t\t981res"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tCrown:\t\t\t\t\t\t\t\t\t\t\t\t\t\t854res"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tNine:\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t534res"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Top Players"
+        android:textSize="35dp"
+        android:id="@+id/textView"
+        android:background="@color/slug_yel"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tTeamSlugger:\t\t\t\t\t\t1120res"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tButterball:\t\t\t\t\t\t\t\t\t\t525res"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tDijkstra:\t\t\t\t\t\t\t\t\t\t\t\t281res"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tMentorDave:\t\t\t\t\t\t\t254res"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tSammySlug:\t\t\t\t\t\t\t86res"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=" "
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>
+

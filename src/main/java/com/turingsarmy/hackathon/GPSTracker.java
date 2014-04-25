@@ -19,7 +19,9 @@ public class GPSTracker extends Service implements LocationListener {
 
     private final Context mContext;
     public static final int RAD_DIST = 150;
+    public static final int RAD_DIST_MED = 120;
     public static final int RAD_DIST_SMALL = 100;
+    public static final int RAD_DIST_LRG = 400;
     public static final double OAKES_LAT = 36.9889;
     public static final double OAKES_LON = -122.06422;
     public static final double EIGHT_LAT = 36.9917;
@@ -28,18 +30,28 @@ public class GPSTracker extends Service implements LocationListener {
     public static final double PORTER_LON = -122.065;
     public static final double KRESGE_LAT = 36.9977;
     public static final double KRESGE_LON = -122.066;
-    public static final double NINE_LAT = 37.0955;
+    public static final double NINE_LAT = 37.00251;
     public static final double NINE_LON = -122.058;
-    public static final double TEN_LAT = 36.999;
+    public static final double TEN_LAT = 37.00019;
     public static final double TEN_LON = -122.0575;
     public static final double CROWN_LAT = 36.9997;
     public static final double CROWN_LON = -122.0555;
+    public static final double CROWNAPT_LAT = 37.0019;
+    public static final double CROWNAPT_LON = -122.0536;
     public static final double MERRILL_LAT = 36.9995;
     public static final double MERRILL_LON = -122.05267;
     public static final double STEVEN_LAT = 36.9975;
     public static final double STEVEN_LON = -122.0514;
     public static final double COWELL_LAT = 36.9965;
     public static final double COWELL_LON = -122.0548;
+    public static final double BRDWLK_LAT = 36.960586;
+    public static final double BRDWLK_LON = -122.020597;
+    public static final double DWNTWN_LAT = 36.973067;
+    public static final double DWNTWN_LON = -122.026563;
+    public static final double SCIHIL_LAT = 36.998241;
+    public static final double SCIHIL_LON = -122.060959;
+    public static final double BASKIN_LAT = 37.000563;
+    public static final double BASKIN_LON = -122.063051;
     private String currentCollege = "none";
 
     // flag for GPS status
@@ -65,7 +77,7 @@ public class GPSTracker extends Service implements LocationListener {
 
     public GPSTracker(Context context) {
         this.mContext = context;
-        getLocation();
+        //getLocation();
     }
 
     public Location getLocation() {
@@ -202,14 +214,13 @@ public class GPSTracker extends Service implements LocationListener {
         alertDialog.show();
     }
 
-    public String getCurrentCollege()
-    {
+    public String getCurrentCollege() {
         determineCollege();
-        return currentCollege;
+        //return currentCollege;
+        return "Oakes";
     }
 
-    public void determineCollege()
-    {
+    private void determineCollege() {
         double tryDist, lowDist=Double.MAX_VALUE;
         double lat = getLatitude();
         double lon = getLongitude();
@@ -249,6 +260,11 @@ public class GPSTracker extends Service implements LocationListener {
             lowDist = tryDist;
             currentCollege="Crown";
         }
+        tryDist = distance(lat, lon, CROWNAPT_LAT, CROWNAPT_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
+            currentCollege="Crown";
+        }
         tryDist = distance(lat, lon, MERRILL_LAT, MERRILL_LON, 'K');
         if (tryDist < RAD_DIST){
             lowDist = tryDist;
@@ -264,13 +280,27 @@ public class GPSTracker extends Service implements LocationListener {
             lowDist = tryDist;
             currentCollege="Cowell";
         }
+        tryDist = distance(lat, lon, BRDWLK_LAT, BRDWLK_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
+            currentCollege="Boardwalk";
+        }
+        tryDist = distance(lat, lon, DWNTWN_LAT, DWNTWN_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
+            currentCollege="Downtown";
+        }
+        tryDist = distance(lat, lon, DWNTWN_LAT, DWNTWN_LON, 'K');
+        if (tryDist < RAD_DIST){
+            lowDist = tryDist;
+            currentCollege="Downtown";
+        }
         if (lowDist > RAD_DIST)
             currentCollege = "none";
     }
 
     @Override
-    public void onLocationChanged(Location location) {
-    }
+    public void onLocationChanged(Location location) {}
 
     @Override
     public void onProviderDisabled(String provider) {}
@@ -282,9 +312,7 @@ public class GPSTracker extends Service implements LocationListener {
     public void onStatusChanged(String provider, int status, Bundle extras) {}
 
     @Override
-    public IBinder onBind(Intent arg0) {
-        return null;
-        }
+    public IBinder onBind(Intent arg0) {return null;}
 
     private double distance(double lat1, double lon1, double lat2, double lon2, char unit) {
         float[] distance = new float[10];

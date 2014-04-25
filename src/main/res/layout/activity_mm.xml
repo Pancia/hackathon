@@ -4,4 +4,473 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    //Button Combo 9
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#ff000a"
+            android:text="Ω"
+            android:textColor="#ffff8c6b"
+            android:textSize="40dp"
+            android:id="@+id/activity_mm_red9"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1dc319"
+            android:text="β"
+            android:textSize="40dp"
+            android:textColor="#36ff00"
+            android:id="@+id/activity_mm_grn9"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1100ff"
+            android:text="Σ"
+            android:textSize="40dp"
+            android:textColor="#0081ff"
+            android:id="@+id/activity_mm_blu9"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="SUBMIT"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:id="@+id/activity_mm_ges9"/>
+    </LinearLayout>
+
+    //Button Combo 8
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#ff000a"
+            android:text="Ω"
+            android:textColor="#ffff8c6b"
+            android:textSize="40dp"
+            android:id="@+id/activity_mm_red8"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1dc319"
+            android:text="β"
+            android:textSize="40dp"
+            android:textColor="#36ff00"
+            android:id="@+id/activity_mm_grn8"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1100ff"
+            android:text="Σ"
+            android:textSize="40dp"
+            android:textColor="#0081ff"
+            android:id="@+id/activity_mm_blu8"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="SUBMIT"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:id="@+id/activity_mm_ges8"/>
+    </LinearLayout>
+
+    //Button Combo 7
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#ff000a"
+            android:text="Ω"
+            android:textColor="#ffff8c6b"
+            android:textSize="40dp"
+            android:id="@+id/activity_mm_red7"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1dc319"
+            android:text="β"
+            android:textSize="40dp"
+            android:textColor="#36ff00"
+            android:id="@+id/activity_mm_grn7"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1100ff"
+            android:text="Σ"
+            android:textSize="40dp"
+            android:textColor="#0081ff"
+            android:id="@+id/activity_mm_blu7"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="SUBMIT"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:id="@+id/activity_mm_ges7"/>
+    </LinearLayout>
+
+    //Button Combo 6
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#ff000a"
+            android:text="Ω"
+            android:textColor="#ffff8c6b"
+            android:textSize="40dp"
+            android:id="@+id/activity_mm_red6"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1dc319"
+            android:text="β"
+            android:textSize="40dp"
+            android:textColor="#36ff00"
+            android:id="@+id/activity_mm_grn6"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1100ff"
+            android:text="Σ"
+            android:textSize="40dp"
+            android:textColor="#0081ff"
+            android:id="@+id/activity_mm_blu6"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="SUBMIT"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:id="@+id/activity_mm_ges6"/>
+    </LinearLayout>
+
+    //Button Combo 5
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+        
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#ff000a"
+            android:text="Ω"
+            android:textColor="#ffff8c6b"
+            android:textSize="40dp"
+            android:id="@+id/activity_mm_red5"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1dc319"
+            android:text="β"
+            android:textSize="40dp"
+            android:textColor="#36ff00"
+            android:id="@+id/activity_mm_grn5"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1100ff"
+            android:text="Σ"
+            android:textSize="40dp"
+            android:textColor="#0081ff"
+            android:id="@+id/activity_mm_blu5"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="SUBMIT"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:id="@+id/activity_mm_ges5"/>
+    </LinearLayout>
+
+    //Button Combo 4
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#ff000a"
+            android:text="Ω"
+            android:textColor="#ffff8c6b"
+            android:textSize="40dp"
+            android:id="@+id/activity_mm_red4"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1dc319"
+            android:text="β"
+            android:textSize="40dp"
+            android:textColor="#36ff00"
+            android:id="@+id/activity_mm_grn4"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1100ff"
+            android:text="Σ"
+            android:textSize="40dp"
+            android:textColor="#0081ff"
+            android:id="@+id/activity_mm_blu4"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="SUBMIT"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:id="@+id/activity_mm_ges4"/>
+    </LinearLayout>
+
+    //Button Combo 3
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#ff000a"
+            android:text="Ω"
+            android:textColor="#ffff8c6b"
+            android:textSize="40dp"
+            android:id="@+id/activity_mm_red3"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1dc319"
+            android:text="β"
+            android:textSize="40dp"
+            android:textColor="#36ff00"
+            android:id="@+id/activity_mm_grn3"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1100ff"
+            android:text="Σ"
+            android:textSize="40dp"
+            android:textColor="#0081ff"
+            android:id="@+id/activity_mm_blu3"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="SUBMIT"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:id="@+id/activity_mm_ges3"/>
+    </LinearLayout>
+
+    //Button Combo 2
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#ff000a"
+            android:text="Ω"
+            android:textColor="#ffff8c6b"
+            android:textSize="40dp"
+            android:id="@+id/activity_mm_red2"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1dc319"
+            android:text="β"
+            android:textSize="40dp"
+            android:textColor="#36ff00"
+            android:id="@+id/activity_mm_grn2"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1100ff"
+            android:text="Σ"
+            android:textSize="40dp"
+            android:textColor="#0081ff"
+            android:id="@+id/activity_mm_blu2"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="SUBMIT"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:id="@+id/activity_mm_ges2"/>
+    </LinearLayout>
+
+    //Button Combo 1
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#ff000a"
+            android:text="Ω"
+            android:textColor="#ffff8c6b"
+            android:textSize="40dp"
+            android:id="@+id/activity_mm_red1"/>
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1dc319"
+            android:text="β"
+            android:textSize="40dp"
+            android:textColor="#36ff00"
+            android:id="@+id/activity_mm_grn1"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1100ff"
+            android:text="Σ"
+            android:textSize="40dp"
+            android:textColor="#0081ff"
+            android:id="@+id/activity_mm_blu1"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="SUBMIT"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:id="@+id/activity_mm_ges1"/>
+    </LinearLayout>
+
+    //Button Combo 0
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="10">
+        
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#ff000a"
+            android:text="Ω"
+            android:textColor="#ffff8c6b"
+            android:textSize="40dp"
+            android:tag="#ff000a"
+            android:id="@+id/activity_mm_red0"/>
+        
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1dc319"
+            android:text="β"
+            android:textSize="40dp"
+            android:textColor="#36ff00"
+            android:tag="#1dc319"
+            android:id="@+id/activity_mm_grn0"/>
+
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="33"
+            android:background="#1100ff"
+            android:text="Σ"
+            android:textSize="40dp"
+            android:textColor="#0081ff"
+            android:tag="#1100ff"
+            android:id="@+id/activity_mm_blu0"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="25"
+            android:text="SUBMIT"
+            android:gravity="center"
+            android:textSize="20dp"
+            android:clickable="true"
+            android:id="@+id/activity_mm_ges0"/>
+
+        </LinearLayout>
+
 </LinearLayout>

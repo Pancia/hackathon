@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="User Statistics"
+        android:background="@color/slug_yel"
+        android:textSize="45dp"
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="85dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:background="@color/slug_blu"
+        android:textSize="45dp"
+        android:id="@+id/textView"
+        android:gravity="center"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tAreas Visited:\t\t\t\t\t\t\t\t1/12"
+        android:background="@color/slug_blu"
+        android:textColor="@color/slug_yel"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tPvP Battles Won:\t\t\t\t8"
+        android:background="@color/slug_blu"
+        android:textColor="@color/slug_yel"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tPvP Battles Lost:\t\t\t\t\t5"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tPvE Battles Won:\t\t\t\t\t3"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tPvE Battles Lost:\t\t\t\t\t4"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="\tResource +/-:\t\t\t\t\t\t\t\t+2"
+        android:textColor="@color/slug_yel"
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=" "
+        android:background="@color/slug_blu"
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:gravity="left"
+        android:layout_gravity="center_horizontal" />
+</LinearLayout>

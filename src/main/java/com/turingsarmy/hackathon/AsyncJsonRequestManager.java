@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -34,7 +37,7 @@ public class AsyncJsonRequestManager extends AsyncTask<String, String, String> {
     private String TAG;
 
     public enum Actions {
-        ADDUSER, UPDATEUSER, POSTGAMEMOVE, GETGAMESTATUS, JOINGAME
+        ADDUSER, UPDATEUSER, POSTGAMEMOVE, GETGAMESTATUS, JOINGAME, RETDEF, GETCOLLEGEINFO, VERIFYUSER, UPDATECOLLEGEINFO
     }
 
     public enum Keys {
@@ -87,26 +90,24 @@ public class AsyncJsonRequestManager extends AsyncTask<String, String, String> {
         //if (isCancelled()) //change to check periodically?
         //    return null;
 
-        JsonObject json = new JsonObject();
+        List<NameValuePair> params = new ArrayList<NameValuePair>();
         if (!myHashMap.isEmpty()) {
             for (Map.Entry<String, String> entry : myHashMap.entrySet()) {
-                json.addProperty(entry.getKey(), entry.getValue());
+                params.add(new BasicNameValuePair(entry.getKey(), entry.getValue()));
             }
         }
+        Log.d(TAG, params.toString());
 
-        Ion.with(myActivity, baseUrl + endUrl)
-                .setLogging(TAG, Log.INFO)
-                .setJsonObjectBody(json)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        if (e == null)
-                            myFutureTask.onRequestCompleted(result);
-                        else
-                            myFutureTask.onRequestFailed(e);
-                    }
-                });
+        String response = new JsonHttpRequester(baseUrl + endUrl, params)
+                               .makeJsonHttpRequest(JsonHttpRequester.POST);
+        Log.i(TAG, response);
+        JSONObject jsonObject = null;
+        try {
+            jsonObject = new JSONObject(response);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        myFutureTask.onRequestCompleted(jsonObject);
 
         return null;
     }

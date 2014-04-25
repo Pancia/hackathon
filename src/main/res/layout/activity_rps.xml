@@ -22,7 +22,9 @@
                     android:text="New Text"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:id="@+id/activity_rps_p1" />
+                    android:id="@+id/activity_rps_p1"
+                    android:textColor="#ffc617"
+                    android:background="#0014ff" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -31,7 +33,9 @@
                     android:text="VS"
                     android:textSize="35sp"
                     android:gravity="center"
-                    android:id="@+id/textView2" />
+                    android:id="@+id/textView2"
+                    android:textColor="#ff0400"
+                    android:background="#0014ff" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -40,7 +44,9 @@
                     android:text="New Text"
                     android:textSize="18sp"
                     android:gravity="center"
-                    android:id="@+id/activity_rps_p2" />
+                    android:id="@+id/activity_rps_p2"
+                    android:textColor="#ffc617"
+                    android:background="#0014ff" />
             </LinearLayout>
 
             <LinearLayout
@@ -55,7 +61,9 @@
                     android:gravity="center"
                     android:text="SCISSOR"
                     android:textSize="31sp"
-                    android:id="@+id/activity_rps_p1_sel"/>
+                    android:id="@+id/activity_rps_p1_sel"
+                    android:background="#0014ff"
+                    android:textColor="#ffffff" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -66,7 +74,8 @@
                     android:text="0:00"
                     android:textSize="39sp"
                     android:gravity="center"
-                    android:textColor="#ff0a00" />
+                    android:textColor="#ff0a00"
+                    android:background="#0014ff" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -75,7 +84,9 @@
                     android:gravity="center"
                     android:text="SCISSOR"
                     android:textSize="31sp"
-                    android:id="@+id/activity_rps_p2_sel"/>
+                    android:id="@+id/activity_rps_p2_sel"
+                    android:background="#0014ff"
+                    android:textColor="#ffffff" />
             </LinearLayout>
 
         </LinearLayout>
@@ -90,7 +101,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:textColor="#ffea45"
-            android:background="#d30309" />
+            android:background="#5284e8" />
 
     <LinearLayout
 
@@ -105,7 +116,7 @@
             android:layout_weight="33"
             android:textSize="25dp"
             android:text="ROCK"
-            android:id="@+id/activity_rps_rock"/>
+            android:id="@+id/activity_rps_rock" />
 
         <Button
             android:layout_width="0dp"
