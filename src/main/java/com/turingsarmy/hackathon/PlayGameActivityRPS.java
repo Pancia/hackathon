@@ -11,9 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import com.google.gson.JsonObject;
 
 public class PlayGameActivityRPS extends ActionBarActivity {
 
@@ -111,17 +109,16 @@ public class PlayGameActivityRPS extends ActionBarActivity {
     }
 
     private void submitMove(String move) {
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("username", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
-        map.put("move", move);
-        map.put("gamemode", getIntent().getStringExtra("gamemode"));
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(this);
         man.setAction(AsyncJsonRequestManager.Actions.POSTGAMEMOVE);
-        man.setRequestBody(map);
+        man.setRequestBody(new HackMap()
+                .setUsername(MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""))
+                .setGamemode(getIntent().getStringExtra("gamemode"))
+                .setMove(move));
         man.setCallback(new MyFutureTask() {
             @Override
-            public void onRequestCompleted(JSONObject json) {
-                String response = json.optString("response");
+            public void onCompleted(Exception e, JsonObject json) {
+                String response = String.valueOf(json.get("response"));
                 if (response.equals("success")) {
                     pingServer();
                 } else {
@@ -134,16 +131,15 @@ public class PlayGameActivityRPS extends ActionBarActivity {
     }
 
     private void pingServer() {
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("username", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
-        map.put("gamemode", getIntent().getStringExtra("gamemode"));
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(this);
         man.setAction(AsyncJsonRequestManager.Actions.GETGAMESTATUS);
-        man.setRequestBody(map);
+        man.setRequestBody(new HackMap()
+                .setUsername(MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""))
+                .setGamemode(getIntent().getStringExtra("gamemode")));
         man.setCallback(new MyFutureTask() {
             @Override
-            public void onRequestCompleted(JSONObject json) {
-                String response = json.optString("response");
+            public void onCompleted(Exception e, JsonObject json) {
+                String response = String.valueOf(json.get("response"));
                 if (response.equals("try again")) {
                     pingServer();
                 } else {
@@ -151,7 +147,7 @@ public class PlayGameActivityRPS extends ActionBarActivity {
                     PlayGameActivityRPS.this.startActivity(new Intent(PlayGameActivityRPS.this, PlayActivity.class));
                 }
 
-                String p2_gamemove = json.optString("gamemove");
+                String p2_gamemove = String.valueOf(json.get("gamemove"));
                 updateTextView(vicTim, move.equals(p2_gamemove)?"draw":getWinStatus(p2_gamemove));
             }
 
@@ -170,12 +166,11 @@ public class PlayGameActivityRPS extends ActionBarActivity {
         }).execute();
     }
 
-    private void createToast (final String string){
+    private void createToast (final String string) {
         PlayGameActivityRPS.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Toast.makeText(PlayGameActivityRPS.this, string, Toast.LENGTH_SHORT).show();
-
             }
         });
     }

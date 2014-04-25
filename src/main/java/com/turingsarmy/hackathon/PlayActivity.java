@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 
@@ -47,14 +47,7 @@ public class PlayActivity extends Activity {
 
         fight.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-//                if (track.getCurrentCollege().equals("none")) {
-//                    Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
-//                    PlayActivity.this.startActivity(myIntent);
-//                    Toast.makeText(PlayActivity.this, "Option currently unavailable, move to the nearest college to enable", Toast.LENGTH_SHORT).show();
-//                } else {
-
-                    tryToJoinGame();
-                //}
+                tryToJoinGame();
             }
         });
     }
@@ -67,12 +60,15 @@ public class PlayActivity extends Activity {
 
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(PlayActivity.this);
                 man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
-                man.setRequestBody(map);
+                man.setRequestBody(new HackMap()
+                        .setUsername(MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""))
+                        .setGamemode(playerType)
+                );
                 man.setCallback(new MyFutureTask() {
                     @Override
-                    public void onRequestCompleted(JSONObject json) {
-                        String response = json.optString("response");
-                        String p2_username = json.optString("p2_username");
+                    public void onCompleted(Exception e, JsonObject json) {
+                        String response = String.valueOf(json.get("response"));
+                        String p2_username = String.valueOf(json.get("p2_username"));
                         createToast(response);
                         createToast(p2_username);
 

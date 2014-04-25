@@ -14,9 +14,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import com.google.gson.JsonObject;
 
 public class SignupActivity extends Activity {
 
@@ -63,18 +61,15 @@ public class SignupActivity extends Activity {
 
     private void tryToCreateUser(){
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(this);
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("USERNAME".toLowerCase(), username.getText().toString());
-        map.put("PASSWORD".toLowerCase(), password.getText().toString());
-        map.put("EMAIL".toLowerCase(), email.getText().toString());
-        map.put("COLLEGE".toLowerCase(), collegeSpinner.getSelectedItem().toString());
-        Log.w(TAG, map.toString());
-
         man.setAction(AsyncJsonRequestManager.Actions.ADDUSER);
-                man.setRequestBody(map);
+                man.setRequestBody(new HackMap()
+                        .setUsername(username.getText().toString())
+                        .setPassword(password.getText().toString())
+                        .setEmail(email.getText().toString())
+                        .setCollege(collegeSpinner.getSelectedItem().toString()));
                 man.setCallback(new MyFutureTask() {
                     @Override
-                    public void onRequestCompleted(JSONObject json) {
+                    public void onCompleted(Exception e, JsonObject json) {
                         Log.i(TAG, json.toString());
                     }
                 })

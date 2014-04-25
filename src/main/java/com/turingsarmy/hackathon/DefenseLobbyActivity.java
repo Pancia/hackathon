@@ -10,9 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import com.google.gson.JsonObject;
 
 public class DefenseLobbyActivity extends Activity {
 
@@ -67,16 +65,14 @@ public class DefenseLobbyActivity extends Activity {
     }
 
     private void tryToFindNumDef() {
-        HashMap<String, String> map = new HashMap<String, String>();
         GPSTracker track = new GPSTracker(this);
-            map.put("COLLEGE".toLowerCase(), track.getCurrentCollege());
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
                 man.setAction(AsyncJsonRequestManager.Actions.GETCOLLEGEINFO);
-                man.setRequestBody(map);
+                man.setRequestBody(new HackMap().setCollege(track.getCurrentCollege()));
                 man.setCallback(new MyFutureTask() {
                     @Override
-                    public void onRequestCompleted(JSONObject json) {
-                        String defender_count = json.optString("defender_count");
+                    public void onCompleted(Exception e, JsonObject json) {
+                        String defender_count = String.valueOf(json.get("defender_count"));
                         updateTextView(numDefense, defender_count);
                     }
                 }).execute();
@@ -94,16 +90,15 @@ public class DefenseLobbyActivity extends Activity {
 
     private void tryToLeaveLobby() {
         ping = false;
-        HashMap<String, String> map = new HashMap<String, String>();
         GPSTracker track = new GPSTracker(this);
-        map.put("COLLEGE".toLowerCase(), track.getCurrentCollege());
-        map.put("USERNAME".toLowerCase(), MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
         man.setAction(AsyncJsonRequestManager.Actions.UPDATECOLLEGEINFO);
-        man.setRequestBody(map);
+        man.setRequestBody(new HackMap()
+                .setUsername(MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""))
+                .setCollege(track.getCurrentCollege()));
         man.setCallback(new MyFutureTask() {
             @Override
-            public void onRequestCompleted(JSONObject json) {
+            public void onCompleted(Exception e, JsonObject json) {
                 Intent myIntent = new Intent(DefenseLobbyActivity.this, PlayActivity.class);
                 DefenseLobbyActivity.this.startActivity(myIntent);
             }
@@ -113,27 +108,25 @@ public class DefenseLobbyActivity extends Activity {
 
     private void pingServer() {
         Log.w(TAG, "defenselobby pingServer()");
-        HashMap<String, String> map = new HashMap<String, String>();
-        GPSTracker track = new GPSTracker(this);
-        map.put("GAMEMODE".toLowerCase(), "defender");
-        map.put("USERNAME".toLowerCase(), MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
+        if (!ping) return;
+        //GPSTracker track = new GPSTracker(this);
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
         man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
-        man.setRequestBody(map);
+        man.setRequestBody(new HackMap()
+                .setUsername(MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""))
+                .setGamemode("defender"));
         man.setCallback(new MyFutureTask() {
             @Override
-            public void onRequestCompleted(JSONObject json) {
-                String response = json.optString("response");
-                String p2_username = json.optString("p2_username");
+            public void onCompleted(Exception e, JsonObject json) {
+                String response = String.valueOf(json.get("response"));
+                String p2_username = String.valueOf(json.get("p2_username"));
                 if(response.equals("try again")){
-                    if (ping) {
                         try {
                             Thread.sleep(1000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
+                        } catch (InterruptedException ie) {
+                            ie.printStackTrace();
                         }
                         pingServer();
-                    }
                 }
                 else if (!p2_username.equals("")){
                     Intent myIntent = new Intent(DefenseLobbyActivity.this, PlayGameActivityRPS.class);

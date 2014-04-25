@@ -12,10 +12,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
+import com.google.gson.JsonObject;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Random;
 
 public class PlayGameActivityMM extends ActionBarActivity {
@@ -385,15 +384,12 @@ public class PlayGameActivityMM extends ActionBarActivity {
     }
 
     private void tryToUpdateCollegeRes() {
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("COLLEGE", home);
-
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(PlayGameActivityMM.this);
         man.setAction(AsyncJsonRequestManager.Actions.UPDATECOLLEGEINFO);
-        man.setRequestBody(map);
+        man.setRequestBody(new HackMap().setCollege(home));
         man.setCallback(new MyFutureTask() {
             @Override
-            public void onRequestCompleted(JSONObject json) {
+            public void onCompleted(Exception e, JsonObject json) {
                 createToast("Resources successfully updated.");
             }
         }).execute();
