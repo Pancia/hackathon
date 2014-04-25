@@ -9,8 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/play_activity_fragment"
-        android:name="com.turingsarmy.hackathon.PlayRPSFragment"
-        tools:layout="@layout/playrps_fragment">
+        android:name="com.turingsarmy.hackathon.PlayRPSFragment">
         </fragment>
 
 </LinearLayout>
