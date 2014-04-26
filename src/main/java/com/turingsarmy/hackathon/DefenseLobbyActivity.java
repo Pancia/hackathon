@@ -17,7 +17,7 @@ public class DefenseLobbyActivity extends Activity {
     private static final String TAG = DefenseLobbyActivity.class.getSimpleName();
     private TextView numDefense, prompt;
     private Button exit;
-    private boolean ping = true;
+    private boolean shouldPingServer = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,15 +67,15 @@ public class DefenseLobbyActivity extends Activity {
     private void tryToFindNumDef() {
         GPSTracker track = new GPSTracker(this);
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
-                man.setAction(AsyncJsonRequestManager.Actions.GETCOLLEGEINFO);
-                man.setRequestBody(new HackMap().setCollege(track.getCurrentCollege()));
-                man.setCallback(new MyFutureTask() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject json) {
-                        String defender_count = String.valueOf(json.get("defender_count"));
-                        updateTextView(numDefense, defender_count);
-                    }
-                }).execute();
+        man.setAction(AsyncJsonRequestManager.Actions.GETCOLLEGEINFO);
+        man.setRequestBody(new HackMap().setCollege(track.getCurrentCollege()));
+        man.setCallback(new MyFutureTask() {
+            @Override
+            public void onCompleted(Exception e, JsonObject json) {
+                String defender_count = String.valueOf(json.get("defender_count")).replaceAll("\"", "");
+                updateTextView(numDefense, defender_count);
+            }
+        }).execute();
     }
 
     private void updateTextView(final TextView tv, final String string) {
@@ -89,7 +89,7 @@ public class DefenseLobbyActivity extends Activity {
     }
 
     private void tryToLeaveLobby() {
-        ping = false;
+        shouldPingServer = false;
         GPSTracker track = new GPSTracker(this);
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
         man.setAction(AsyncJsonRequestManager.Actions.UPDATECOLLEGEINFO);
@@ -108,7 +108,6 @@ public class DefenseLobbyActivity extends Activity {
 
     private void pingServer() {
         Log.w(TAG, "defenselobby pingServer()");
-        if (!ping) return;
         //GPSTracker track = new GPSTracker(this);
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
         man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
@@ -118,17 +117,24 @@ public class DefenseLobbyActivity extends Activity {
         man.setCallback(new MyFutureTask() {
             @Override
             public void onCompleted(Exception e, JsonObject json) {
-                String response = String.valueOf(json.get("response"));
-                String p2_username = String.valueOf(json.get("p2_username"));
+                if (e != null) {
+                    e.printStackTrace();
+                    return;
+                }
+                String response = String.valueOf(json.get("response")).replaceAll("\"", "");
+                String p2_username = String.valueOf(json.get("p2_username")).replaceAll("\"", "");
                 if(response.equals("try again")){
+                    if (shouldPingServer) {
                         try {
                             Thread.sleep(1000);
                         } catch (InterruptedException ie) {
                             ie.printStackTrace();
                         }
                         pingServer();
+                    }
                 }
-                else if (!p2_username.equals("")){
+                else if (!p2_username.equals("null")) {
+                    Log.d(TAG, "p2_username: "+p2_username);
                     Intent myIntent = new Intent(DefenseLobbyActivity.this, PlayGameActivityRPS.class);
                     myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
                     myIntent.putExtra("p2name", p2_username);
