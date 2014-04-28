@@ -79,27 +79,30 @@ public class PlayActivity extends Activity {
                             createToast("try again");
                         }
                         /**Defender*/
-                        else if (track.getCurrentCollege().equals(home) && response.equals("added to game")){
+                        else if (playerType.equals("defender") && response.equals("added to game")){
                             Intent myIntent = new Intent(PlayActivity.this, DefenseLobbyActivity.class);
                             PlayActivity.this.startActivity(myIntent);
                         }
                         /**Attacker*/
-                        else if (!track.getCurrentCollege().equals(home) && !p2_username.equals("")){
-                            Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
-                            myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
-                            myIntent.putExtra("p2name", p2_username);
-                            myIntent.putExtra("gamemode", "attacker");
-                            PlayActivity.this.startActivity(myIntent);
+                        else if (playerType.equals("attacker") && !p2_username.equals("null")){
+                            if (p2_username.equals("pve")){
+                                createToast("pve");
+                                Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
+                                PlayActivity.this.startActivity(myIntent);
+                            }
+                            else {
+                                Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
+                                myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
+                                myIntent.putExtra("p2name", p2_username);
+                                myIntent.putExtra("gamemode", "attacker");
+                                PlayActivity.this.startActivity(myIntent);
+                            }
                         } else if (response.equals("game already exists")){
                             createToast("You are currently in a game. Please wait until your current game ends before starting a new one.");
                         } else if (response.equals("UserDatabase is null!")){
                             createToast("Your data base is empty.");
                             createToast("base null");
                             Intent myIntent = new Intent(PlayActivity.this, MainActivity.class);
-                            PlayActivity.this.startActivity(myIntent);
-                        } else if (p2_username.equals("pve")){
-                            createToast("pve");
-                            Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
                             PlayActivity.this.startActivity(myIntent);
                         }
                     }

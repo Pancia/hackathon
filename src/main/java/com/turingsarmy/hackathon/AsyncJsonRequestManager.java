@@ -87,7 +87,7 @@ public class AsyncJsonRequestManager extends AsyncTask<String, String, String> {
 
         Ion.with(myActivity)
                 .load(baseUrl + endUrl)
-                .setLogging(TAG, Log.DEBUG)
+                .setLogging(TAG, Log.INFO)
                 .setJsonObjectBody(params)
                 .asJsonObject()
                 .setCallback(myFutureTask);
