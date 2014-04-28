@@ -24,7 +24,7 @@ public class PlayActivity extends Activity {
         setContentView(R.layout.play);
         String home = MyShrdPrfs.myShrdPrfs.getString("COLLEGE", "");
         final GPSTracker track = new GPSTracker(this);
-        Button playfriends = (Button) findViewById(R.id.play_button_playfriends);
+        //Button playfriends = (Button) findViewById(R.id.play_button_playfriends);
         TextView location = (TextView) findViewById(R.id.play_textview_location);
         Button fight = (Button) findViewById(R.id.play_button_fight);
         if (track.getCurrentCollege().equals("none")){
@@ -50,8 +50,6 @@ public class PlayActivity extends Activity {
     }
 
     private void tryToJoinGame() {
-        final GPSTracker track = new GPSTracker(this);
-
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(PlayActivity.this);
                 man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
                 man.setRequestBody(new HackMap()
@@ -66,51 +64,36 @@ public class PlayActivity extends Activity {
                             return;
                         }
                         Log.w(TAG, json.toString());
-                        String response = String.valueOf(json.get("response")).replaceAll("\"", "");
-                        String p2_username = String.valueOf(json.get("p2_username")).replaceAll("\"", "");
-                        createToast(response);
-                        createToast(p2_username);
-
-                        //invariant, response or p2_username will be null
-                        Log.d(TAG, "i am here");
-
-                        if (response.equals("try again")) {
-                            //tryToJoinGame();
+                        int status = json.get("response").getAsJsonObject().get("status").getAsInt();
+                        if (status == 1) {
                             Log.w(TAG, "try again!");
                             createToast("failed");
                         }
                         /**Defender*/
-                        else if (playerType.equals("defender") && response.equals("added to game")) {
+                        else if (playerType.equals("defender") && status == 0) {
                             createToast("defending!"); Log.d(TAG, "added to defender");
                             Intent myIntent = new Intent(PlayActivity.this, DefenseLobbyActivity.class);
                             PlayActivity.this.startActivity(myIntent);
                         }
                         /**Attacker*/
-                        else if (playerType.equals("attacker") && !p2_username.equals("")) {
+                        else if (playerType.equals("attacker") && status == 0) {
+                            String p2_username = json.get("response").getAsJsonObject().get("p2_username").getAsString();
                             if (p2_username.equals("pve")) {
                                 Log.d(TAG, "pve");
-                                createToast("pve");
                                 Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
                                 PlayActivity.this.startActivity(myIntent);
                             } else {
-                                Log.d(TAG, "attacking!");
+                                Log.d(TAG, "pvp!");
                                 Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
                                 myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
                                 myIntent.putExtra("p2name", p2_username);
-                                myIntent.putExtra("gamemode", "attacker");
+                                myIntent.putExtra("gamemode", playerType);
                                 PlayActivity.this.startActivity(myIntent);
                             }
-                        } else if (response.equals("game already exists")) {
-                            Log.d(TAG, "game already exists");
-                            createToast("You are currently in a game. Please wait until your current game ends before starting a new one.");
-                        } else if (response.equals("UserDatabase is null!")) {
-                            Log.d(TAG, "UserDatabase is null!");
-                            createToast("Your data base is empty.");
-                            createToast("base null");
-                            Intent myIntent = new Intent(PlayActivity.this, MainActivity.class);
-                            PlayActivity.this.startActivity(myIntent);
                         } else {
-                            Log.e(TAG, "How did I get here?");
+                            String message = json.get("response").getAsJsonObject().get("message").getAsString();
+                            Log.e(TAG, message);
+                            createToast(message);
                         }
                     }
                 }).execute();

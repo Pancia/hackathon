@@ -192,22 +192,16 @@ public class PlayGameActivityMM extends ActionBarActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.activity_mm, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         if (id == R.id.activitymm_item__howtoplay) {
-            createLongToast("Click squares to change the color. Try to guess the secret code. The output is in no specific order.");
-            createLongToast("C - correct color and position \n W - correct color, wrong position\n Nothing - both color and position is wrong.");
+            createToast("Click squares to change the color. Try to guess the secret code. The output is in no specific order.", Toast.LENGTH_LONG);
+            createToast("C - correct color and position \n W - correct color, wrong position\n Nothing - both color and position is wrong.", Toast.LENGTH_LONG);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -390,27 +384,34 @@ public class PlayGameActivityMM extends ActionBarActivity {
         man.setCallback(new MyFutureTask() {
             @Override
             public void onCompleted(Exception e, JsonObject json) {
-                createToast("Resources successfully updated.");
+                if (e != null) {
+                    e.printStackTrace();
+                    return;
+                }
+                int status = json.get("response").getAsJsonObject().get("status").getAsInt();
+                if (status != 0) {
+                    createToast(json.get("response").getAsJsonObject().get("message").getAsString());
+                }
             }
         }).execute();
 
     }
 
-    private void createToast (final String s){
+    private void createToast(final String string){
         PlayGameActivityMM.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(PlayGameActivityMM.this, string, Toast.LENGTH_SHORT).show();
 
             }
         });
     }
 
-    private void createLongToast (final String s){
+    private void createToast(final String string, final int length){
         PlayGameActivityMM.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                Toast.makeText(PlayGameActivityMM.this, string, length).show();
 
             }
         });
