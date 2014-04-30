@@ -15,6 +15,10 @@ public class PlayMMFragment extends Fragment {
         this.home = home;
     }
 
+    public PlayMMFragment () {
+        home = MyShrdPrfs.myShrdPrfs.getString("HOME", home);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.playmm_fragment, container, false);

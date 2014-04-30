@@ -32,6 +32,7 @@
         <activity android:label="@string/app_name" android:name="ChallengesActivity"/>
         <activity android:label="@string/app_name" android:name="StatsActivity"/>
         <activity android:label="@string/app_name" android:name="LeaderActivity"/>
+        <activity android:label="@string/app_name" android:name="GameActivity" />
     </application>
 
     //GPS Requests

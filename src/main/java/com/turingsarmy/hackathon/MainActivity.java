@@ -77,7 +77,7 @@ public class MainActivity extends Activity {
                         MyShrdPrfs.saveObject("PASSWORD", password.getText().toString());
                         MyShrdPrfs.saveObject("COLLEGE", college);
                         Log.w("College Check", college);
-                        Intent myIntent = new Intent(MainActivity.this, MenuActivity.class);
+                        Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
                         MainActivity.this.startActivity(myIntent);
                     }
                     else {
