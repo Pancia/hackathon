@@ -20,8 +20,7 @@ public class SignupActivity extends Activity {
 
     private static final String TAG = SignupActivity.class.getSimpleName();
     private Spinner collegeSpinner;
-    private Button submit;
-    private EditText username, password, email;
+    private EditText et_username, et_password, et_email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,43 +29,40 @@ public class SignupActivity extends Activity {
         setContentView(R.layout.signup);
 
         collegeSpinner = (Spinner) findViewById(R.id.signup_spinner_college);
-        submit = (Button) findViewById(R.id.signup_button_submit);
-        username = (EditText) findViewById(R.id.signup_edittext_username);
-        password = (EditText) findViewById(R.id.signup_edittext_password);
-        email = (EditText) findViewById(R.id.signup_edittext_email);
-        ArrayAdapter adapter = new ArrayAdapter(this,
-                R.layout.row, R.id.row_textview_spinnerelement, res.getStringArray(R.array.signup_colleges));
-        collegeSpinner.setAdapter(adapter);
+        et_username = (EditText) findViewById(R.id.signup_edittext_username);
+        et_password = (EditText) findViewById(R.id.signup_edittext_password);
+        et_email = (EditText) findViewById(R.id.signup_edittext_email);
+        collegeSpinner.setAdapter(new ArrayAdapter<String>(this, R.layout.row,
+                R.id.row_textview_spinnerelement, res.getStringArray(R.array.signup_colleges)));
 
-        submit.setOnClickListener(new Button.OnClickListener() {
+        (findViewById(R.id.signup_button_submit)).setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                if (!email.getText().toString().isEmpty() && !password.getText().toString().isEmpty() && !username.toString().isEmpty()){
-                    String userEmail = email.getText().toString();
-                    if (userEmail.contains("@ucsc.edu")){
-
-                        tryToCreateUser();
+                if (et_email.getText() != null && et_password.getText() != null
+                        && et_username.getText() != null && collegeSpinner.getSelectedItem() != null) {
+                    String userEmail = et_email.getText().toString();
+                    if (userEmail.contains("@ucsc.edu")) {
+                        tryToCreateUser(et_username.getText().toString(), et_password.getText().toString(),
+                                et_email.getText().toString(), collegeSpinner.getSelectedItem().toString());
 
                         Intent myIntent = new Intent(SignupActivity.this, MenuActivity.class);
                         SignupActivity.this.startActivity(myIntent);
+                    } else {
+                        Toast.makeText(SignupActivity.this, "Please enter a valid UCSC email", Toast.LENGTH_SHORT).show();
                     }
-                    else{
-                        Toast.makeText(getApplicationContext(), "Please enter a valid UCSC email", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    Toast.makeText(getApplicationContext(), "Please fill in all fields", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(SignupActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                 }
             }
         });    }
 
-    private void tryToCreateUser(){
+    private void tryToCreateUser(String username, String password, String email, String college){
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(this);
         man.setAction(AsyncJsonRequestManager.Actions.ADDUSER);
                 man.setRequestBody(new HackMap()
-                        .setUsername(username.getText().toString())
-                        .setPassword(password.getText().toString())
-                        .setEmail(email.getText().toString())
-                        .setCollege(collegeSpinner.getSelectedItem().toString()));
+                        .setUsername(username)
+                        .setPassword(password)
+                        .setEmail(email)
+                        .setCollege(college));
                 man.setCallback(new MyFutureTask() {
                     @Override
                     public void onCompleted(Exception e, JsonObject json) {
@@ -78,17 +74,12 @@ public class SignupActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;

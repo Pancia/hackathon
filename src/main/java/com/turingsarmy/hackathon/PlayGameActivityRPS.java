@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,12 +16,10 @@ import com.google.gson.JsonObject;
 
 public class PlayGameActivityRPS extends ActionBarActivity {
 
+    private static final String TAG = PlayGameActivityRPS.class.getSimpleName();
     private String move = "SELECT!";
-    private String p2sel = "CASTING";
     private String time = "0:15";
-    private int tTotal = 15;
     private int timer;
-    private boolean win = false;
     private TextView tvP1Choice;
     private TextView vicTim;
     private Button rock;
@@ -35,16 +34,15 @@ public class PlayGameActivityRPS extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rps);
 
-
         //Timer and Victory
         vicTim = (TextView) findViewById(R.id.activity_rps_time);
         vicTim.setText(time);
 
         //Player selections
         tvP1Choice = (TextView) findViewById(R.id.activity_rps_p1_sel);
-        tvP1Choice.setText(move);
+        tvP1Choice.setText("SELECT!");
         TextView tvp2Choice = (TextView) findViewById(R.id.activity_rps_p2_sel);
-        tvp2Choice.setText(p2sel);
+        tvp2Choice.setText("CASTING");
 
         //Display Names
         final String p1Name = getIntent().getStringExtra("p1name");
@@ -64,7 +62,7 @@ public class PlayGameActivityRPS extends ActionBarActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        timer = tTotal;
+        timer = 15;
         shouldSubmit = true;
 
         rock.setOnClickListener(new View.OnClickListener() {
@@ -93,7 +91,7 @@ public class PlayGameActivityRPS extends ActionBarActivity {
             }
         });
 
-        gameTimer = new CountDownTimer(tTotal * 1000, 1000) {
+        gameTimer = new CountDownTimer(15 * 1000, 1000) {
             public void onTick(long millisUntilFinished) {
                 timer--;
                 if (timer < 10) {
@@ -127,12 +125,14 @@ public class PlayGameActivityRPS extends ActionBarActivity {
                     e.printStackTrace();
                     return;
                 }
-                String response = String.valueOf(json.get("response")).replaceAll("\"", "");
-                if (response.equals("success")) {
+                int status = json.get("response").getAsJsonObject().get("status").getAsInt();
+                if (status == 0){
                     pingServer();
                 } else {
                     //should not happen!
-                    Toast.makeText(PlayGameActivityRPS.this, response, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(PlayGameActivityRPS.this,
+                            json.get("response").getAsJsonObject().get("message").getAsString(),
+                            Toast.LENGTH_SHORT).show();
                     PlayGameActivityRPS.this.startActivity(new Intent(PlayGameActivityRPS.this, PlayActivity.class));
                 }
             }
@@ -151,26 +151,29 @@ public class PlayGameActivityRPS extends ActionBarActivity {
             public void onCompleted(Exception e, JsonObject json) {
                 if (e != null) {
                     e.printStackTrace();
+                    return;
                 }
-                String response = String.valueOf(json.get("response")).replaceAll("\"", "");
-                if (response.equals("try again")) {
+                int status = json.get("response").getAsJsonObject().get("status").getAsInt();
+                if (status == 1) {//ie: try again
                     try {
-                        Thread.sleep(1000);
+                        Thread.sleep(1500);
                     } catch (InterruptedException ie) {
                         ie.printStackTrace();
                     }
                     pingServer();
-                } else {
-                    createToast(response);
+                } else if (status == 0) {
                     gameTimer.cancel();
-                    String p2_gamemove = String.valueOf(json.get("gamemove")).replaceAll("\"", "");
-                    updateTextView(vicTim, move.equals(p2_gamemove)?"draw":getWinStatus(p2_gamemove));
+                    String p2_gamemove = json.get("response").getAsJsonObject().get("gamemove").getAsString();
+                    createToast(p2_gamemove);
+                    updateTextView(vicTim, move.equals(p2_gamemove) ? "draw" : getWinStatus(p2_gamemove));
                     new CountDownTimer(3 * 1000, 1000) {
                         public void onTick(long millisUntilFinished) {}
                         public void onFinish() {
                             PlayGameActivityRPS.this.startActivity(new Intent(PlayGameActivityRPS.this, PlayActivity.class));
                         }
                     }.start();
+                } else {
+                    Log.w(TAG, json.toString());
                 }
             }
         }).execute();
@@ -202,7 +205,6 @@ public class PlayGameActivityRPS extends ActionBarActivity {
             @Override
             public void run() {
                 tv.setText(string);
-
             }
         });
     }

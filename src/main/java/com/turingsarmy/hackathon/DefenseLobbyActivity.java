@@ -72,7 +72,7 @@ public class DefenseLobbyActivity extends Activity {
         man.setCallback(new MyFutureTask() {
             @Override
             public void onCompleted(Exception e, JsonObject json) {
-                String defender_count = String.valueOf(json.get("defender_count")).replaceAll("\"", "");
+                String defender_count = json.get("response").getAsJsonObject().get("defender_count").getAsString();
                 updateTextView(numDefense, defender_count);
             }
         }).execute();
@@ -99,6 +99,16 @@ public class DefenseLobbyActivity extends Activity {
         man.setCallback(new MyFutureTask() {
             @Override
             public void onCompleted(Exception e, JsonObject json) {
+                if (e != null) {
+                    e.printStackTrace();
+                    return; //maybe try to leave again?
+                }
+                Log.d(TAG, json.toString());
+
+                int status = json.get("response").getAsJsonObject().get("status").getAsInt();
+                if (status != 0) {
+                    return; //try to leave again?
+                }
                 Intent myIntent = new Intent(DefenseLobbyActivity.this, PlayActivity.class);
                 DefenseLobbyActivity.this.startActivity(myIntent);
             }
@@ -107,7 +117,6 @@ public class DefenseLobbyActivity extends Activity {
     }
 
     private void pingServer() {
-        Log.w(TAG, "defenselobby pingServer()");
         //GPSTracker track = new GPSTracker(this);
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(DefenseLobbyActivity.this);
         man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
@@ -121,25 +130,27 @@ public class DefenseLobbyActivity extends Activity {
                     e.printStackTrace();
                     return;
                 }
-                String response = String.valueOf(json.get("response")).replaceAll("\"", "");
-                String p2_username = String.valueOf(json.get("p2_username")).replaceAll("\"", "");
-                if(response.equals("try again")){
+                Log.d(TAG, json.toString());
+
+                int status = json.get("response").getAsJsonObject().get("status").getAsInt();
+                if (status == 1){
                     if (shouldPingServer) {
                         try {
-                            Thread.sleep(1000);
+                            Thread.sleep(1500);
                         } catch (InterruptedException ie) {
                             ie.printStackTrace();
                         }
                         pingServer();
                     }
-                }
-                else if (!p2_username.equals("null")) {
-                    Log.d(TAG, "p2_username: "+p2_username);
+                } else if (status == 0) {
+                    String p2_username = json.get("response").getAsJsonObject().get("p2_username").getAsString();
                     Intent myIntent = new Intent(DefenseLobbyActivity.this, PlayGameActivityRPS.class);
                     myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
                     myIntent.putExtra("p2name", p2_username);
                     myIntent.putExtra("gamemode", "defender");
                     DefenseLobbyActivity.this.startActivity(myIntent);
+                } else {
+                    Log.e(TAG, json.get("response").toString());
                 }
             }
 
