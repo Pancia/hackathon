@@ -11,9 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import com.google.gson.JsonObject;
 
 public class PlayGameActivityRPS extends ActionBarActivity {
 
@@ -29,6 +27,8 @@ public class PlayGameActivityRPS extends ActionBarActivity {
     private Button paper;
     private Button scissor;
     private Button submit;
+    private boolean shouldSubmit = true;
+    private CountDownTimer gameTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,7 @@ public class PlayGameActivityRPS extends ActionBarActivity {
     protected void onStart() {
         super.onStart();
         timer = tTotal;
+        shouldSubmit = true;
 
         rock.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -88,10 +89,11 @@ public class PlayGameActivityRPS extends ActionBarActivity {
         submit.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 submitMove(move);
+                shouldSubmit = false;
             }
         });
 
-        new CountDownTimer(tTotal * 1000, 1000) {
+        gameTimer = new CountDownTimer(tTotal * 1000, 1000) {
             public void onTick(long millisUntilFinished) {
                 timer--;
                 if (timer < 10) {
@@ -105,26 +107,31 @@ public class PlayGameActivityRPS extends ActionBarActivity {
             public void onFinish() {
                 vicTim.setText("0:00");//change to win/lose
                 timer = 0;
-                submitMove(move);
+                if (shouldSubmit)
+                    submitMove(move);
             }
         }.start();
     }
 
     private void submitMove(String move) {
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("username", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
-        map.put("move", move);
-        map.put("gamemode", getIntent().getStringExtra("gamemode"));
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(this);
         man.setAction(AsyncJsonRequestManager.Actions.POSTGAMEMOVE);
-        man.setRequestBody(map);
+        man.setRequestBody(new HackMap()
+                .setUsername(MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""))
+                .setGamemode(getIntent().getStringExtra("gamemode"))
+                .setMove(move));
         man.setCallback(new MyFutureTask() {
             @Override
-            public void onRequestCompleted(JSONObject json) {
-                String response = json.optString("response");
+            public void onCompleted(Exception e, JsonObject json) {
+                if (e != null) {
+                    e.printStackTrace();
+                    return;
+                }
+                String response = String.valueOf(json.get("response")).replaceAll("\"", "");
                 if (response.equals("success")) {
                     pingServer();
                 } else {
+                    //should not happen!
                     Toast.makeText(PlayGameActivityRPS.this, response, Toast.LENGTH_SHORT).show();
                     PlayGameActivityRPS.this.startActivity(new Intent(PlayGameActivityRPS.this, PlayActivity.class));
                 }
@@ -134,48 +141,58 @@ public class PlayGameActivityRPS extends ActionBarActivity {
     }
 
     private void pingServer() {
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("username", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
-        map.put("gamemode", getIntent().getStringExtra("gamemode"));
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(this);
         man.setAction(AsyncJsonRequestManager.Actions.GETGAMESTATUS);
-        man.setRequestBody(map);
+        man.setRequestBody(new HackMap()
+                .setUsername(MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""))
+                .setGamemode(getIntent().getStringExtra("gamemode")));
         man.setCallback(new MyFutureTask() {
             @Override
-            public void onRequestCompleted(JSONObject json) {
-                String response = json.optString("response");
+            public void onCompleted(Exception e, JsonObject json) {
+                if (e != null) {
+                    e.printStackTrace();
+                }
+                String response = String.valueOf(json.get("response")).replaceAll("\"", "");
                 if (response.equals("try again")) {
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException ie) {
+                        ie.printStackTrace();
+                    }
                     pingServer();
                 } else {
                     createToast(response);
-                    PlayGameActivityRPS.this.startActivity(new Intent(PlayGameActivityRPS.this, PlayActivity.class));
-                }
-
-                String p2_gamemove = json.optString("gamemove");
-                updateTextView(vicTim, move.equals(p2_gamemove)?"draw":getWinStatus(p2_gamemove));
-            }
-
-            private String getWinStatus(String p2_gamemove) {
-                if (move.equals("ROCK") && p2_gamemove.equals("PAPER")) {
-                    return "win";
-                } else if (move.equals("PAPER") && p2_gamemove.equals("PAPER")) {
-                    return "win";
-                } else if (move.equals("SCISSOR") && p2_gamemove.equals("PAPER")) {
-                    return "win";
-                } else {
-                    return "lose";
+                    gameTimer.cancel();
+                    String p2_gamemove = String.valueOf(json.get("gamemove")).replaceAll("\"", "");
+                    updateTextView(vicTim, move.equals(p2_gamemove)?"draw":getWinStatus(p2_gamemove));
+                    new CountDownTimer(3 * 1000, 1000) {
+                        public void onTick(long millisUntilFinished) {}
+                        public void onFinish() {
+                            PlayGameActivityRPS.this.startActivity(new Intent(PlayGameActivityRPS.this, PlayActivity.class));
+                        }
+                    }.start();
                 }
             }
-
         }).execute();
     }
 
-    private void createToast (final String string){
+    private String getWinStatus(String p2_gamemove) {
+        if (move.equals("PAPER") && p2_gamemove.equals("ROCK")) {
+            return "win";
+        } else if (move.equals("ROCK") && p2_gamemove.equals("SCISSOR")) {
+            return "win";
+        } else if (move.equals("SCISSOR") && p2_gamemove.equals("PAPER")) {
+            return "win";
+        } else {
+            return "lose";
+        }
+    }
+
+    private void createToast (final String string) {
         PlayGameActivityRPS.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 Toast.makeText(PlayGameActivityRPS.this, string, Toast.LENGTH_SHORT).show();
-
             }
         });
     }

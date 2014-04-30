@@ -3,6 +3,7 @@ package com.turingsarmy.hackathon;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,26 +11,22 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import com.google.gson.JsonObject;
 
 public class PlayActivity extends Activity {
 
-    private Button playfriends, fight;
+    private static final String TAG = PlayActivity.class.getSimpleName();
     private String playerType;
-    private TextView location;
-    private String home;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.play);
-        home = MyShrdPrfs.myShrdPrfs.getString("COLLEGE", "");//TODO NPE HERE?
+        String home = MyShrdPrfs.myShrdPrfs.getString("COLLEGE", "");
         final GPSTracker track = new GPSTracker(this);
-        playfriends = (Button) findViewById(R.id.play_button_playfriends);
-        location = (TextView) findViewById(R.id.play_textview_location);
-        fight = (Button) findViewById(R.id.play_button_fight);
+        Button playfriends = (Button) findViewById(R.id.play_button_playfriends);
+        TextView location = (TextView) findViewById(R.id.play_textview_location);
+        Button fight = (Button) findViewById(R.id.play_button_fight);
         if (track.getCurrentCollege().equals("none")){
             location.setText("You are currently not in any college");
         }
@@ -47,64 +44,73 @@ public class PlayActivity extends Activity {
 
         fight.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-//                if (track.getCurrentCollege().equals("none")) {
-//                    Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
-//                    PlayActivity.this.startActivity(myIntent);
-//                    Toast.makeText(PlayActivity.this, "Option currently unavailable, move to the nearest college to enable", Toast.LENGTH_SHORT).show();
-//                } else {
-
-                    tryToJoinGame();
-                //}
+                tryToJoinGame();
             }
         });
     }
 
     private void tryToJoinGame() {
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("username", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
-        map.put("gamemode", playerType);
         final GPSTracker track = new GPSTracker(this);
 
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(PlayActivity.this);
                 man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
-                man.setRequestBody(map);
+                man.setRequestBody(new HackMap()
+                        .setUsername(MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""))
+                        .setGamemode(playerType)
+                );
                 man.setCallback(new MyFutureTask() {
                     @Override
-                    public void onRequestCompleted(JSONObject json) {
-                        String response = json.optString("response");
-                        String p2_username = json.optString("p2_username");
+                    public void onCompleted(Exception e, JsonObject json) {
+                        if (e != null) {
+                            e.printStackTrace();
+                            return;
+                        }
+                        Log.w(TAG, json.toString());
+                        String response = String.valueOf(json.get("response")).replaceAll("\"", "");
+                        String p2_username = String.valueOf(json.get("p2_username")).replaceAll("\"", "");
                         createToast(response);
                         createToast(p2_username);
 
                         //invariant, response or p2_username will be null
+                        Log.d(TAG, "i am here");
 
                         if (response.equals("try again")) {
                             //tryToJoinGame();
-                            createToast("try again");
+                            Log.w(TAG, "try again!");
+                            createToast("failed");
                         }
                         /**Defender*/
-                        else if (track.getCurrentCollege().equals(home) && response.equals("added to game")){
+                        else if (playerType.equals("defender") && response.equals("added to game")) {
+                            createToast("defending!"); Log.d(TAG, "added to defender");
                             Intent myIntent = new Intent(PlayActivity.this, DefenseLobbyActivity.class);
                             PlayActivity.this.startActivity(myIntent);
                         }
                         /**Attacker*/
-                        else if (!track.getCurrentCollege().equals(home) && !p2_username.equals("")){
-                            Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
-                            myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
-                            myIntent.putExtra("p2name", p2_username);
-                            myIntent.putExtra("gamemode", "attacker");
-                            PlayActivity.this.startActivity(myIntent);
-                        } else if (response.equals("game already exists")){
+                        else if (playerType.equals("attacker") && !p2_username.equals("")) {
+                            if (p2_username.equals("pve")) {
+                                Log.d(TAG, "pve");
+                                createToast("pve");
+                                Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
+                                PlayActivity.this.startActivity(myIntent);
+                            } else {
+                                Log.d(TAG, "attacking!");
+                                Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityRPS.class);
+                                myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
+                                myIntent.putExtra("p2name", p2_username);
+                                myIntent.putExtra("gamemode", "attacker");
+                                PlayActivity.this.startActivity(myIntent);
+                            }
+                        } else if (response.equals("game already exists")) {
+                            Log.d(TAG, "game already exists");
                             createToast("You are currently in a game. Please wait until your current game ends before starting a new one.");
-                        } else if (response.equals("UserDatabase is null!")){
+                        } else if (response.equals("UserDatabase is null!")) {
+                            Log.d(TAG, "UserDatabase is null!");
                             createToast("Your data base is empty.");
                             createToast("base null");
                             Intent myIntent = new Intent(PlayActivity.this, MainActivity.class);
                             PlayActivity.this.startActivity(myIntent);
-                        } else if (p2_username.equals("pve")){
-                            createToast("pve");
-                            Intent myIntent = new Intent(PlayActivity.this, PlayGameActivityMM.class);
-                            PlayActivity.this.startActivity(myIntent);
+                        } else {
+                            Log.e(TAG, "How did I get here?");
                         }
                     }
                 }).execute();
@@ -115,7 +121,6 @@ public class PlayActivity extends Activity {
             @Override
             public void run() {
                 Toast.makeText(PlayActivity.this, string, Toast.LENGTH_SHORT).show();
-
             }
         });
     }

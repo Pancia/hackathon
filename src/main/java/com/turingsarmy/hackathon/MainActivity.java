@@ -11,9 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import org.json.JSONObject;
-
-import java.util.HashMap;
+import com.google.gson.JsonObject;
 
 public class MainActivity extends Activity {
 
@@ -57,31 +55,47 @@ public class MainActivity extends Activity {
         return true;
     }
 
-    private void tryToVerifyUsernamePassword(){
+    private void tryToVerifyUsernamePassword() {
+        String tUsername = "";
+        String tPassword = "";
+        try {
+            //noinspection ConstantConditions
+            tUsername = username.getText().toString();
+            //noinspection ConstantConditions
+            tPassword = password.getText().toString();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            createToast("Please fill in all fields");
+        }
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(this);
-        HashMap<String, String> map = new HashMap<String, String>();
-        map.put("USERNAME".toLowerCase(), username.getText().toString());
-        map.put("PASSWORD".toLowerCase(), password.getText().toString());
-
         man.setAction(AsyncJsonRequestManager.Actions.VERIFYUSER);
-        man.setRequestBody(map);
+        man.setRequestBody(new HackMap()
+                .setUsername(tUsername)
+                .setPassword(tPassword));
+        final String finalTUsername = tUsername;
+        final String finalTPassword = tPassword;
         man.setCallback(new MyFutureTask() {
             @Override
-            public void onRequestCompleted(JSONObject json) {
-                String response = json.optString("response");
-                String college = json.optString("college");
+            public void onCompleted(Exception e, JsonObject json) {
+                if (e != null) {
+                    e.printStackTrace();
+                    return;
+                }
+                Log.w(TAG, json.toString());
+                String response = json.get("response").getAsString();
+                String college = json.get("college").getAsString();
 
-                if (!username.getText().toString().isEmpty() && !password.getText().toString().isEmpty()){
+                if (!finalTUsername.isEmpty() && !finalTPassword.isEmpty()){
                     if (response.equals("success")){
-                        MyShrdPrfs.saveObject("USERNAME", username.getText().toString());
-                        MyShrdPrfs.saveObject("PASSWORD", password.getText().toString());
+                        MyShrdPrfs.saveObject("USERNAME", finalTUsername);
+                        MyShrdPrfs.saveObject("PASSWORD", finalTPassword);
                         MyShrdPrfs.saveObject("COLLEGE", college);
                         Log.w("College Check", college);
                         Intent myIntent = new Intent(MainActivity.this, GameActivity.class);
                         MainActivity.this.startActivity(myIntent);
                     }
                     else {
-                    createToast("Username and password don't match, try again");
+                        createToast("Username and password don't match, try again");
                     }
                 }
                 else {
@@ -92,7 +106,7 @@ public class MainActivity extends Activity {
         }).execute();
     }
 
-    private void createToast (final String string){
+    private void createToast (final String string) {
         MainActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {

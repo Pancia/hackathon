@@ -37,8 +37,6 @@ public class MyShrdPrfs {
         editor.commit();
     }
 
-    public static void reset() {
-        myShrdPrfs.edit().clear().commit();
-    }
+    public static void reset() {myShrdPrfs.edit().clear().commit();}
 
 }
