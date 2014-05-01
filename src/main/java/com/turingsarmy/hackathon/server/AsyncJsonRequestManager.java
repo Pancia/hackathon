@@ -6,8 +6,6 @@ import android.util.Log;
 
 import com.google.gson.JsonObject;
 import com.koushikdutta.ion.Ion;
-import com.turingsarmy.hackathon.HackMap;
-import com.turingsarmy.hackathon.MyFutureTask;
 
 import java.util.Map;
 
