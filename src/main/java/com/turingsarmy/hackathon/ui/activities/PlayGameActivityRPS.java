@@ -13,11 +13,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.turingsarmy.hackathon.R;
 import com.turingsarmy.hackathon.server.AsyncJsonRequestManager;
 import com.turingsarmy.hackathon.server.HackMap;
 import com.turingsarmy.hackathon.server.MyFutureTask;
 import com.turingsarmy.hackathon.storage.MyShrdPrfs;
-import com.turingsarmy.hackathon.R;
 
 public class PlayGameActivityRPS extends ActionBarActivity {
 
@@ -138,7 +138,7 @@ public class PlayGameActivityRPS extends ActionBarActivity {
                     Toast.makeText(PlayGameActivityRPS.this,
                             json.get("response").getAsJsonObject().get("message").getAsString(),
                             Toast.LENGTH_SHORT).show();
-                    PlayGameActivityRPS.this.startActivity(new Intent(PlayGameActivityRPS.this, PlayActivity.class));
+                    PlayGameActivityRPS.this.startActivity(new Intent(PlayGameActivityRPS.this, GameActivity.class));
                 }
             }
 
@@ -174,7 +174,7 @@ public class PlayGameActivityRPS extends ActionBarActivity {
                     new CountDownTimer(3 * 1000, 1000) {
                         public void onTick(long millisUntilFinished) {}
                         public void onFinish() {
-                            PlayGameActivityRPS.this.startActivity(new Intent(PlayGameActivityRPS.this, PlayActivity.class));
+                            PlayGameActivityRPS.this.startActivity(new Intent(PlayGameActivityRPS.this, GameActivity.class));
                         }
                     }.start();
                 } else {

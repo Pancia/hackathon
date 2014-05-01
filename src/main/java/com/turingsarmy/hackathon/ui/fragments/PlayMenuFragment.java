@@ -1,18 +1,27 @@
 package com.turingsarmy.hackathon.ui.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.turingsarmy.hackathon.location.GPSTracker;
-import com.turingsarmy.hackathon.storage.MyShrdPrfs;
+import com.google.gson.JsonObject;
 import com.turingsarmy.hackathon.R;
+import com.turingsarmy.hackathon.location.GPSTracker;
+import com.turingsarmy.hackathon.server.AsyncJsonRequestManager;
+import com.turingsarmy.hackathon.server.HackMap;
+import com.turingsarmy.hackathon.server.MyFutureTask;
+import com.turingsarmy.hackathon.storage.MyShrdPrfs;
+import com.turingsarmy.hackathon.ui.activities.DefenseLobbyActivity;
 import com.turingsarmy.hackathon.ui.activities.GameActivity;
+import com.turingsarmy.hackathon.ui.activities.PlayGameActivityRPS;
 
 public class PlayMenuFragment extends Fragment {
 
@@ -20,6 +29,7 @@ public class PlayMenuFragment extends Fragment {
     private String location;
     private boolean home;
     private Activity myActivity;
+    private String playerType;
 
     public PlayMenuFragment(){
         GPSTracker tracker = new GPSTracker(getActivity());
@@ -51,11 +61,29 @@ public class PlayMenuFragment extends Fragment {
         Button fight = (Button) v.findViewById(R.id.play_button_fight);
         TextView tv = (TextView) v.findViewById(R.id.play_textview_location);
 
-        tv.setText("You are currently in " + location);
-        if(home)
-            fight.setText("Defend " + location);
-        else
-            fight.setText("Fight against " + location);
+        String college = MyShrdPrfs.myShrdPrfs.getString("COLLEGE", "");
+        final GPSTracker track = new GPSTracker(getActivity());
+        //Button playfriends = (Button) findViewById(R.id.play_button_playfriends);
+        if (track.getCurrentCollege().equals("none")){
+            tv.setText("You are currently not in any college");
+        }
+        else {
+            tv.setText("You are currently in " + track.getCurrentCollege());
+            if (track.getCurrentCollege().equals(home)){
+                fight.setText("Defend " + track.getCurrentCollege());
+                playerType = "defender";
+            }
+            else {
+                fight.setText("Fight against " + track.getCurrentCollege());
+                playerType = "attacker";
+            }
+        }
+
+        fight.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                tryToJoinGame();
+            }
+        });
 
         fight.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +92,72 @@ public class PlayMenuFragment extends Fragment {
             }
         });
     }
+
+    private void tryToJoinGame() {
+        AsyncJsonRequestManager man = new AsyncJsonRequestManager(getActivity());
+        man.setAction(AsyncJsonRequestManager.Actions.JOINGAME);
+        man.setRequestBody(new HackMap()
+                        .setUsername(MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""))
+                        .setGamemode(playerType)
+        );
+        man.setCallback(new MyFutureTask() {
+            @Override
+            public void onCompleted(Exception e, JsonObject json) {
+                if (e != null) {
+                    e.printStackTrace();
+                    return;
+                } else if (getActivity() == null) {
+                    Log.e(TAG, "activity was null");
+                    return;
+                }
+                Log.w(TAG, json.toString());
+                int status = json.get("response").getAsJsonObject().get("status").getAsInt();
+                if (status == 1) {
+                    Log.w(TAG, "try again!");
+                    createToast("failed");
+                }
+                /**Defender*/
+                else if (playerType.equals("defender") && status == 0) {
+                    createToast("defending!"); Log.d(TAG, "added to defender");
+                    Intent myIntent = new Intent(getActivity(), DefenseLobbyActivity.class);
+                    getActivity().startActivity(myIntent);
+                }
+                /**Attacker*/
+                else if (playerType.equals("attacker") && status == 0) {
+                    String p2_username = json.get("response").getAsJsonObject().get("p2_username").getAsString();
+                    if (p2_username.equals("pve")) {
+                        Log.d(TAG, "pve");
+                        ((GameActivity)getActivity()).changeFragment(new PlayMMFragment());
+                    } else {
+                        Log.d(TAG, "pvp!");
+                        Intent myIntent = new Intent(getActivity(), PlayGameActivityRPS.class);
+                        myIntent.putExtra("p1name", MyShrdPrfs.myShrdPrfs.getString("USERNAME", ""));
+                        myIntent.putExtra("p2name", p2_username);
+                        myIntent.putExtra("gamemode", playerType);
+                        getActivity().startActivity(myIntent);
+                    }
+                } else {
+                    String message = json.get("response").getAsJsonObject().get("message").getAsString();
+                    Log.e(TAG, message);
+                    createToast(message);
+                }
+            }
+        }).execute();
+    }
+
+    private void createToast (final String string){
+        if (getActivity() == null) {
+            Log.e(TAG, "activity was null!");
+            return;
+        }
+        getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     @Override
     public void onAttach(Activity activity) {

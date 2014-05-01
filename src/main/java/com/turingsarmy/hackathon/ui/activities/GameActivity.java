@@ -1,16 +1,15 @@
 package com.turingsarmy.hackathon.ui.activities;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.turingsarmy.hackathon.R;
 
-public class GameActivity extends Activity {
+public class GameActivity extends ActionBarActivity {
 
     private static final String TAG = GameActivity.class.getSimpleName();
 
@@ -40,17 +39,11 @@ public class GameActivity extends Activity {
     }
 
     public void changeFragment(Fragment fragment) {
-        // Create new fragment and transaction
-        Log.d(TAG, "changeFragment");
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-        // Replace whatever is in the fragment_container view with this fragment,
-        // and add the transaction to the back stack
-        transaction.replace(R.id.play_activity_fragment, (Fragment) fragment);
-        //transaction.addToBackStack(null);
-
-        // Commit the transaction
-        transaction.commit();
+        Log.d(TAG, "changing fragment");
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.play_activity_fragment, fragment)
+                .addToBackStack(null)
+                .commit();
     }
 
 }

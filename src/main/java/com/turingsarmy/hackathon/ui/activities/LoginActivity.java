@@ -90,7 +90,7 @@ public class LoginActivity extends Activity {
                         MyShrdPrfs.saveObject("PASSWORD", finalTPassword);
                         MyShrdPrfs.saveObject("COLLEGE", college);
 
-                        Intent myIntent = new Intent(LoginActivity.this, GameActivity.class); //TODO change to correct change later
+                        Intent myIntent = new Intent(LoginActivity.this, MenuActivity.class);
 
                         LoginActivity.this.startActivity(myIntent);
                     }

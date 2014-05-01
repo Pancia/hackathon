@@ -27,7 +27,6 @@
         <activity android:label="@string/app_name" android:name=".ui.activities.MapActivity"/>
         <activity android:label="@string/app_name" android:name=".ui.activities.SignupActivity"/>
         <activity android:label="@string/app_name" android:name=".ui.activities.DefenseLobbyActivity"/>
-        <activity android:label="@string/app_name" android:name=".ui.activities.PlayActivity"/>
         <activity android:label="@string/app_name" android:name=".ui.activities.MenuActivity" />
         <activity android:label="@string/app_name" android:name=".ui.activities.ChallengesActivity"/>
         <activity android:label="@string/app_name" android:name=".ui.activities.StatsActivity"/>

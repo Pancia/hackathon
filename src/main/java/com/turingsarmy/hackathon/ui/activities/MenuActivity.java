@@ -1,6 +1,7 @@
 package com.turingsarmy.hackathon.ui.activities;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -24,10 +25,12 @@ public class MenuActivity extends Activity {
         map = (Button)findViewById(R.id.menu_button_map);
         play = (Button) findViewById(R.id.menu_button_play);
 
+        FragmentManager manager = getFragmentManager();
+
         play.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v)
             {
-                Intent myIntent = new Intent(MenuActivity.this, PlayActivity.class);
+                Intent myIntent = new Intent(MenuActivity.this, GameActivity.class);
                 MenuActivity.this.startActivity(myIntent);
             }
         });

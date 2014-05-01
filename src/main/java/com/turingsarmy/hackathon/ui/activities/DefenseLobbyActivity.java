@@ -115,7 +115,7 @@ public class DefenseLobbyActivity extends Activity {
                 if (status != 0) {
                     return; //try to leave again?
                 }
-                Intent myIntent = new Intent(DefenseLobbyActivity.this, PlayActivity.class);
+                Intent myIntent = new Intent(DefenseLobbyActivity.this, GameActivity.class);
                 DefenseLobbyActivity.this.startActivity(myIntent);
             }
 
