@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.ui.activities;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,6 +13,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.turingsarmy.hackathon.server.AsyncJsonRequestManager;
+import com.turingsarmy.hackathon.server.HackMap;
+import com.turingsarmy.hackathon.server.MyFutureTask;
+import com.turingsarmy.hackathon.R;
 
 import java.util.Arrays;
 import java.util.Random;

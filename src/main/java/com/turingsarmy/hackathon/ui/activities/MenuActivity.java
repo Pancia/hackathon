@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,6 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+import com.turingsarmy.hackathon.R;
 
 public class MenuActivity extends Activity {
 

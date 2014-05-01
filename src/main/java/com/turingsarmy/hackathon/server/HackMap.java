@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.server;
 
 import java.util.HashMap;
 import java.util.Map;

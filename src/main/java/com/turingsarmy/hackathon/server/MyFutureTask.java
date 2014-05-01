@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.server;
 
 import com.google.gson.JsonObject;
 import com.koushikdutta.async.future.FutureCallback;

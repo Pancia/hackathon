@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.ui.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,8 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
+import com.turingsarmy.hackathon.location.GPSTracker;
+import com.turingsarmy.hackathon.R;
 
 import static android.location.Location.distanceBetween;
 

@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,6 +12,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.turingsarmy.hackathon.server.AsyncJsonRequestManager;
+import com.turingsarmy.hackathon.location.GPSTracker;
+import com.turingsarmy.hackathon.server.HackMap;
+import com.turingsarmy.hackathon.server.MyFutureTask;
+import com.turingsarmy.hackathon.storage.MyShrdPrfs;
+import com.turingsarmy.hackathon.R;
 
 public class PlayActivity extends Activity {
 

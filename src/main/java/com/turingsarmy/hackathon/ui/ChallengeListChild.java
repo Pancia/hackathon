@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.ui;
 
 /**
  * Created by cameron on 4/6/14.

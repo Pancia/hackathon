@@ -1,9 +1,14 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.ui.activities;
 
 import java.util.ArrayList;
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ExpandableListView;
+
+import com.turingsarmy.hackathon.R;
+import com.turingsarmy.hackathon.ui.ChallengeListChild;
+import com.turingsarmy.hackathon.ui.ChallengeListGroup;
+import com.turingsarmy.hackathon.ui.ExpandListAdapter;
 
 public class ChallengesActivity extends Activity {
 

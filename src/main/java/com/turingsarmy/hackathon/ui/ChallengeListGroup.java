@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.ui;
 import java.util.ArrayList;
 /**
  * Created by cameron on 4/6/14.

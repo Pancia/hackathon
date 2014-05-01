@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.ui.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,10 +12,15 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.JsonObject;
+import com.turingsarmy.hackathon.server.AsyncJsonRequestManager;
+import com.turingsarmy.hackathon.server.HackMap;
+import com.turingsarmy.hackathon.server.MyFutureTask;
+import com.turingsarmy.hackathon.storage.MyShrdPrfs;
+import com.turingsarmy.hackathon.R;
 
-public class MainActivity extends Activity {
+public class LoginActivity extends Activity {
 
-    private final static String TAG = MainActivity.class.getSimpleName();
+    private final static String TAG = LoginActivity.class.getSimpleName();
     private EditText username, password;
 
     @Override
@@ -37,8 +42,8 @@ public class MainActivity extends Activity {
 
         signup.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                Intent myIntent = new Intent(MainActivity.this, SignupActivity.class);
-                MainActivity.this.startActivity(myIntent);
+                Intent myIntent = new Intent(LoginActivity.this, SignupActivity.class);
+                LoginActivity.this.startActivity(myIntent);
             }
         });
     }
@@ -85,9 +90,9 @@ public class MainActivity extends Activity {
                         MyShrdPrfs.saveObject("PASSWORD", finalTPassword);
                         MyShrdPrfs.saveObject("COLLEGE", college);
 
-                        Intent myIntent = new Intent(MainActivity.this, GameActivity.class); //TODO change to correct change later
+                        Intent myIntent = new Intent(LoginActivity.this, GameActivity.class); //TODO change to correct change later
 
-                        MainActivity.this.startActivity(myIntent);
+                        LoginActivity.this.startActivity(myIntent);
                     }
                     else {
                         createToast("Username and password don't match, try again");
@@ -102,10 +107,10 @@ public class MainActivity extends Activity {
     }
 
     private void createToast (final String string) {
-        MainActivity.this.runOnUiThread(new Runnable() {
+        LoginActivity.this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                Toast.makeText(MainActivity.this, string, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, string, Toast.LENGTH_SHORT).show();
 
             }
         });

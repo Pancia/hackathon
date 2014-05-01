@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;

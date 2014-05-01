@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.ui;
 
 import java.util.ArrayList;
 import android.content.Context;
@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import com.turingsarmy.hackathon.R;
 
 
 public class ExpandListAdapter extends BaseExpandableListAdapter {

@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.server;
 
 import android.app.Activity;
 import android.os.AsyncTask;
@@ -6,6 +6,8 @@ import android.util.Log;
 
 import com.google.gson.JsonObject;
 import com.koushikdutta.ion.Ion;
+import com.turingsarmy.hackathon.HackMap;
+import com.turingsarmy.hackathon.MyFutureTask;
 
 import java.util.Map;
 

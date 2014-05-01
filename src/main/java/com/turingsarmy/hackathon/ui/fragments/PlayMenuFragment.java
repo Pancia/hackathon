@@ -1,4 +1,4 @@
-package com.turingsarmy.hackathon;
+package com.turingsarmy.hackathon.ui.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
@@ -8,6 +8,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.turingsarmy.hackathon.location.GPSTracker;
+import com.turingsarmy.hackathon.storage.MyShrdPrfs;
+import com.turingsarmy.hackathon.R;
+import com.turingsarmy.hackathon.ui.activities.GameActivity;
 
 public class PlayMenuFragment extends Fragment {
 
