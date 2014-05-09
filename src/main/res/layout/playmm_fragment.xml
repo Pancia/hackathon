@@ -47,6 +47,7 @@
             android:gravity="center"
             android:textSize="20dp"
             android:clickable="true"
+            android:background="#FFFFFF"
             android:id="@+id/activity_mm_ges9"/>
     </LinearLayout>
 
@@ -94,6 +95,7 @@
             android:gravity="center"
             android:textSize="20dp"
             android:clickable="true"
+            android:background="#FFFFFF"
             android:id="@+id/activity_mm_ges8"/>
     </LinearLayout>
 
@@ -140,6 +142,7 @@
             android:gravity="center"
             android:textSize="20dp"
             android:clickable="true"
+            android:background="#FFFFFF"
             android:id="@+id/activity_mm_ges7"/>
     </LinearLayout>
 
@@ -184,6 +187,7 @@
             android:layout_height="match_parent"
             android:layout_weight="25"
             android:text="SUBMIT"
+            android:background="#FFFFFF"
             android:gravity="center"
             android:textSize="20dp"
             android:clickable="true"
@@ -233,6 +237,7 @@
             android:gravity="center"
             android:textSize="20dp"
             android:clickable="true"
+            android:background="#FFFFFF"
             android:id="@+id/activity_mm_ges5"/>
     </LinearLayout>
 
@@ -280,6 +285,7 @@
             android:gravity="center"
             android:textSize="20dp"
             android:clickable="true"
+            android:background="#FFFFFF"
             android:id="@+id/activity_mm_ges4"/>
     </LinearLayout>
 
@@ -322,6 +328,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="25"
+            android:background="#FFFFFF"
             android:text="SUBMIT"
             android:gravity="center"
             android:textSize="20dp"
@@ -373,6 +380,7 @@
             android:gravity="center"
             android:textSize="20dp"
             android:clickable="true"
+            android:background="#FFFFFF"
             android:id="@+id/activity_mm_ges2"/>
     </LinearLayout>
 
@@ -416,6 +424,7 @@
             android:layout_height="match_parent"
             android:layout_weight="25"
             android:text="SUBMIT"
+            android:background="#FFFFFF"
             android:gravity="center"
             android:textSize="20dp"
             android:clickable="true"
@@ -467,6 +476,7 @@
             android:layout_weight="25"
             android:text="SUBMIT"
             android:gravity="center"
+            android:background="#FFFFFF"
             android:textSize="20dp"
             android:clickable="true"
             android:id="@+id/activity_mm_ges0"/>
