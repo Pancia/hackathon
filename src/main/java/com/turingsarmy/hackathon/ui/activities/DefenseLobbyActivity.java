@@ -15,7 +15,7 @@ import com.turingsarmy.hackathon.server.AsyncJsonRequestManager;
 import com.turingsarmy.hackathon.location.GPSTracker;
 import com.turingsarmy.hackathon.server.HackMap;
 import com.turingsarmy.hackathon.server.MyFutureTask;
-import com.turingsarmy.hackathon.storage.MyShrdPrfs;
+import com.turingsarmy.hackathon.utils.storage.MyShrdPrfs;
 import com.turingsarmy.hackathon.R;
 
 public class DefenseLobbyActivity extends Activity {

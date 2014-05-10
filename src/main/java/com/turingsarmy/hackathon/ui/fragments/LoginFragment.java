@@ -1,6 +1,5 @@
 package com.turingsarmy.hackathon.ui.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,23 +8,22 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.google.gson.JsonObject;
 import com.turingsarmy.hackathon.R;
 import com.turingsarmy.hackathon.server.AsyncJsonRequestManager;
 import com.turingsarmy.hackathon.server.HackMap;
 import com.turingsarmy.hackathon.server.MyFutureTask;
-import com.turingsarmy.hackathon.storage.MyShrdPrfs;
 import com.turingsarmy.hackathon.ui.activities.MainActivity;
+import com.turingsarmy.hackathon.utils.UIThread;
+import com.turingsarmy.hackathon.utils.storage.MyShrdPrfs;
 
 public class LoginFragment extends Fragment {
     private static final String TAG = LoginFragment.class.getSimpleName();
-    private Activity myActivity;
     private EditText username, password;
     private Button login, signup;
 
-    public LoginFragment (){    }
+    public LoginFragment (){}
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_login, container, false);
@@ -48,35 +46,32 @@ public class LoginFragment extends Fragment {
 
         signup.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
-                ((MainActivity)myActivity).changeFragment(new PlayMMFragment("Oakes")); //TODO change to signup fragment when setup
-            }
-        });
-    }
-
-    private void createToast (final String string){
-        if (getActivity() == null) {
-            Log.e(TAG, "activity was null!");
-            return;
-        }
-        getActivity().runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                Toast.makeText(getActivity(), string, Toast.LENGTH_SHORT).show();
+                assert getActivity() != null;
+                ((MainActivity)getActivity()).changeFragment(new PlayMMFragment("Oakes")); //TODO change to signup fragment when setup
             }
         });
     }
 
     private void tryToVerifyUsernamePassword() {
-        String tUsername = "";
-        String tPassword = "";
+        String tUsername;
+        String tPassword;
         try {
             //noinspection ConstantConditions
             tUsername = username.getText().toString();
             //noinspection ConstantConditions
             tPassword = password.getText().toString();
+
+            if (tUsername == null || tPassword == null) {
+                UIThread.createToast(getActivity(), "Please enter a username and password");
+                return;
+            } else if (tUsername.isEmpty() || tPassword.isEmpty()) {
+                UIThread.createToast(getActivity(), "Please enter in all fields");
+                return;
+            }
         } catch (NullPointerException e) {
             e.printStackTrace();
-            createToast("Please fill in all fields");
+            UIThread.createToast(getActivity(), "Please fill in all fields");
+            return;
         }
         AsyncJsonRequestManager man = new AsyncJsonRequestManager(getActivity());
         man.setAction(AsyncJsonRequestManager.Actions.VERIFYUSER);
@@ -90,37 +85,32 @@ public class LoginFragment extends Fragment {
             public void onCompleted(Exception e, JsonObject json) {
                 if (e != null) {
                     e.printStackTrace();
+                    UIThread.createToast(getActivity(), "Network caused login to fail\nplease try again!");
                     return;
                 }
-                Log.w(TAG, json.toString());
-                int status = json.get("response").getAsJsonObject().get("status").getAsInt();
-                String college = json.get("response").getAsJsonObject().get("college").getAsString();
+                Log.d(TAG, json.toString());
+                JsonObject response = json.get("response").getAsJsonObject();
+                if (response.get("status").getAsInt() != 0) {
+                    UIThread.createToast(getActivity(), "Failed login!");
+                    return;
+                }
+                int status = response.get("status").getAsInt();
+                String college = response.get("college").getAsString();
 
-                if (finalTUsername!=null && finalTPassword!=null){
-                    if (status == 0){
-                        MyShrdPrfs.saveObject("USERNAME", finalTUsername);
-                        MyShrdPrfs.saveObject("PASSWORD", finalTPassword);
-                        MyShrdPrfs.saveObject("COLLEGE", college);
+                if (status == 0){
+                    MyShrdPrfs.saveObject("USERNAME", finalTUsername);
+                    MyShrdPrfs.saveObject("PASSWORD", finalTPassword);
+                    MyShrdPrfs.saveObject("COLLEGE", college);
 
-                        ((MainActivity)myActivity).changeFragment(new PlayMMFragment("Oakes")); //TODO change to menu fragment when setup
-                    }
-                    else {
-                        createToast("Username and password don't match, try again");
-                    }
+                    assert getActivity() != null;
+                    ((MainActivity)getActivity()).changeFragment(new PlayMMFragment("Oakes")); //TODO change to menu fragment when setup
                 }
                 else {
-                    createToast("Please fill in all fields");
+                    UIThread.createToast(getActivity(), "Username and password don't match\n please try again");
                 }
             }
 
         }).execute();
-    }
-
-
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        this.myActivity = activity;
     }
 
     @Override

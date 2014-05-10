@@ -20,7 +20,7 @@ import com.turingsarmy.hackathon.R;
 import com.turingsarmy.hackathon.server.AsyncJsonRequestManager;
 import com.turingsarmy.hackathon.server.HackMap;
 import com.turingsarmy.hackathon.server.MyFutureTask;
-import com.turingsarmy.hackathon.storage.MyShrdPrfs;
+import com.turingsarmy.hackathon.utils.storage.MyShrdPrfs;
 import com.turingsarmy.hackathon.ui.activities.MenuActivity;
 
 import java.util.Arrays;

@@ -18,7 +18,7 @@ import com.turingsarmy.hackathon.location.GPSTracker;
 import com.turingsarmy.hackathon.server.AsyncJsonRequestManager;
 import com.turingsarmy.hackathon.server.HackMap;
 import com.turingsarmy.hackathon.server.MyFutureTask;
-import com.turingsarmy.hackathon.storage.MyShrdPrfs;
+import com.turingsarmy.hackathon.utils.storage.MyShrdPrfs;
 import com.turingsarmy.hackathon.ui.activities.DefenseLobbyActivity;
 import com.turingsarmy.hackathon.ui.activities.GameActivity;
 import com.turingsarmy.hackathon.ui.activities.PlayGameActivityRPS;

@@ -2,7 +2,7 @@ package com.turingsarmy.hackathon;
 
 import android.app.Application;
 
-import com.turingsarmy.hackathon.storage.MyShrdPrfs;
+import com.turingsarmy.hackathon.utils.storage.MyShrdPrfs;
 
 public class hackathon extends Application {
 
